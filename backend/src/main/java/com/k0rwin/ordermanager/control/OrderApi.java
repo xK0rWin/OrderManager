@@ -40,11 +40,11 @@ public class OrderApi {
     }
 
     @PostMapping("")
-    public ResponseEntity<Void> postOrder(@RequestBody Order order) {
+    public ResponseEntity<Long> postOrder(@RequestBody Order order) {
         order.setActive(true);
         order.setDateTime(LocalDateTime.now());
-        orderRepository.save(order);
-        return ResponseEntity.ok().build();
+        Order entity = orderRepository.save(order);
+        return new ResponseEntity<>(entity.getId(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -65,7 +65,7 @@ public class OrderApi {
         for (Order order : openOrders) {
             for (Meal meal : order.getMeals()) {
                 //put the new Meal if not exists else add value + 1
-                summary.compute(meal.getIdentifier(), (k, v) -> (v == null) ? 1 : v + 1);
+                summary.compute(meal.getIdentifier(), (k, v) -> (v == null) ? meal.getAmount() : v + meal.getAmount());
             }
         }
 
@@ -80,7 +80,7 @@ public class OrderApi {
         for (Order order : openOrders) {
             for (Drink drink : order.getDrinks()) {
                 //put the new Drink if not exists else add value + 1
-                summary.compute(drink.getIdentifier(), (k, v) -> (v == null) ? 1 : v + 1);
+                summary.compute(drink.getIdentifier(), (k, v) -> (v == null) ? drink.getAmount() : v + drink.getAmount());
             }
         }
 

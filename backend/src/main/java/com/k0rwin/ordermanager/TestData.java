@@ -1,15 +1,10 @@
 package com.k0rwin.ordermanager;
 
-import com.k0rwin.ordermanager.entity.Coke;
-import com.k0rwin.ordermanager.entity.Order;
 import com.k0rwin.ordermanager.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class TestData {
@@ -19,11 +14,8 @@ public class TestData {
 
     @EventListener(ApplicationReadyEvent.class)
     public void initTestData() {
-        Order order = new Order(LocalDateTime.now(), true);
-        Coke coke = new Coke(order);
-        order.getDrinks().add(coke);
-        Coke coke2 = new Coke(order);
-        order.getDrinks().add(coke2);
-        orderRepository.save(order);
+//        Order order = new Order(1, LocalDateTime.now(), true);
+//        Coke coke = new Coke(order, 2);
+//        orderRepository.save(order);
     }
 }

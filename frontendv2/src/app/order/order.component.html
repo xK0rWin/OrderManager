@@ -1,0 +1,35 @@
+<!-- order.component.html -->
+<div class="container mt-4">
+  <h2>Order Management</h2>
+
+  <form>
+    <div class="mb-3">
+      <label for="tableNumber" class="form-label">Table Number:</label>
+      <input type="text" class="form-control" [(ngModel)]="order.tableNumber" name="tableNumber" required>
+    </div>
+
+    <div class="mb-3">
+      <p>Select Meals:</p>
+      <div class="btn-group" role="group" aria-label="Meal Buttons">
+        <button *ngFor="let meal of availableMeals" type="button" class="btn btn-primary"
+                (click)="addMeal(meal)">
+          {{ meal.identifier }} <span class="badge bg-secondary">{{ meal.amount }}</span>
+        </button>
+        <!-- Add more meal buttons as needed -->
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <p>Select Drinks:</p>
+      <div class="btn-group" role="group" aria-label="Drink Buttons">
+        <button *ngFor="let drink of availableDrinks" type="button" class="btn btn-primary"
+                (click)="addDrink(drink)">
+          {{ drink.identifier }} <span class="badge bg-secondary">{{ drink.amount }}</span>
+        </button>
+        <!-- Add more drink buttons as needed -->
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-danger" (click)="submitOrder()">Submit Order</button>
+  </form>
+</div>
