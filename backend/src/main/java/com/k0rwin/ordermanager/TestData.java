@@ -22,6 +22,8 @@ public class TestData {
         Order order = new Order(LocalDateTime.now(), true);
         Coke coke = new Coke(order);
         order.getDrinks().add(coke);
+        Coke coke2 = new Coke(order);
+        order.getDrinks().add(coke2);
         orderRepository.save(order);
     }
 }

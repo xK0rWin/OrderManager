@@ -86,5 +86,5 @@ public class OrderApi {
 
         return new ResponseEntity<>(summary, HttpStatus.OK);
     }
-    //TODO endpoint to remove items from order? -> add "served" property to item
+    //TODO endpoint to remove items from order? -> add "served" property to item (later)
 }
