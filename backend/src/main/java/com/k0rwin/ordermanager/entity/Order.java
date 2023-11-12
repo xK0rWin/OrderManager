@@ -18,9 +18,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Meal> meals;
+    private List<Meal> meals = new ArrayList<>();
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Drink> drinks;
+    private List<Drink> drinks = new ArrayList<>();
     @Column(name = "time", nullable = false)
     private LocalDateTime dateTime;
     @Column(name = "active")
@@ -32,7 +32,5 @@ public class Order {
     public Order(LocalDateTime dateTime, boolean active) {
         this.dateTime = dateTime;
         this.active = active;
-        this.meals = new ArrayList<>();
-        this.drinks = new ArrayList<>();
     }
 }

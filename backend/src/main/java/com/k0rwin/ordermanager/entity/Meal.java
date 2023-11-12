@@ -1,5 +1,6 @@
 package com.k0rwin.ordermanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +18,8 @@ public abstract class Meal {
     @Column(name = "id")
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnore
     private Order order;
     @Column(name = "price")
     private Double price;
@@ -28,4 +30,6 @@ public abstract class Meal {
         this.order = order;
         this.price = price;
     }
+
+    public abstract String getIdentifier();
 }

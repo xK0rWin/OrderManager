@@ -20,7 +20,7 @@ public class TestData {
     @EventListener(ApplicationReadyEvent.class)
     public void initTestData() {
         Order order = new Order(LocalDateTime.now(), true);
-        Coke coke = new Coke();
+        Coke coke = new Coke(order);
         order.getDrinks().add(coke);
         orderRepository.save(order);
     }

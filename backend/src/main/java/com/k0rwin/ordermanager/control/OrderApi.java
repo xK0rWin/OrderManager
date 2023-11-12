@@ -1,5 +1,6 @@
 package com.k0rwin.ordermanager.control;
 
+import com.k0rwin.ordermanager.entity.Drink;
 import com.k0rwin.ordermanager.entity.Meal;
 import com.k0rwin.ordermanager.entity.Order;
 import com.k0rwin.ordermanager.repository.OrderRepository;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,8 +34,9 @@ public class OrderApi {
 
     @GetMapping("")
     public ResponseEntity<List<Order>> getOrders() {
-        return new ResponseEntity<>(orderRepository.findAll().stream()
-                .filter(Order::isActive).collect(Collectors.toList()), HttpStatus.OK);
+        List<Order> openOrders = orderRepository.findAll().stream()
+                .filter(Order::isActive).collect(Collectors.toList());
+        return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
     @PostMapping("")
@@ -54,11 +57,34 @@ public class OrderApi {
         }
     }
 
-    //TODO: get a summary of all open meals and drinks
     @GetMapping("/meals")
-    public ResponseEntity<List<Meal>> getMealSummary() {
-        List<Order> openOrders =  orderRepository.findAll().stream().filter(Order::isActive).toList();
+    public ResponseEntity<HashMap<String, Integer>> getMealSummary() {
+        HashMap<String, Integer> summary = new HashMap<>();
+        List<Order> openOrders = orderRepository.findAll().stream().filter(Order::isActive).toList();
 
+        for (Order order : openOrders) {
+            for (Meal meal : order.getMeals()) {
+                //put the new Meal if not exists else add value + 1
+                summary.compute(meal.getIdentifier(), (k, v) -> (v == null) ? 1 : v + 1);
+            }
+        }
 
+        return new ResponseEntity<>(summary, HttpStatus.OK);
     }
+
+    @GetMapping("/drinks")
+    public ResponseEntity<HashMap<String, Integer>> getDrinkSummary() {
+        HashMap<String, Integer> summary = new HashMap<>();
+        List<Order> openOrders = orderRepository.findAll().stream().filter(Order::isActive).toList();
+
+        for (Order order : openOrders) {
+            for (Drink drink : order.getDrinks()) {
+                //put the new Drink if not exists else add value + 1
+                summary.compute(drink.getIdentifier(), (k, v) -> (v == null) ? 1 : v + 1);
+            }
+        }
+
+        return new ResponseEntity<>(summary, HttpStatus.OK);
+    }
+    //TODO endpoint to remove items from order? -> add "served" property to item
 }

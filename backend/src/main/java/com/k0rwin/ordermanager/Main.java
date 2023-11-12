@@ -12,8 +12,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.time.LocalDateTime;
 
-@EntityScan("com.k0rwin.ordermanager.entity")
-@EnableJpaRepositories(basePackages = "com.k0rwin.ordermanager.repository")
+@EntityScan
+@EnableJpaRepositories
 @SpringBootApplication
 public class Main {
 
