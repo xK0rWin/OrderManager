@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.k0rwin.ordermanager.bundle.Identifier;
-import com.k0rwin.ordermanager.entity.Baguette;
 import com.k0rwin.ordermanager.entity.Meal;
-import com.k0rwin.ordermanager.entity.SausageSalad;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

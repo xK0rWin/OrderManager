@@ -4,11 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.k0rwin.ordermanager.bundle.Identifier;
-import com.k0rwin.ordermanager.entity.Coke;
 import com.k0rwin.ordermanager.entity.Drink;
-import com.k0rwin.ordermanager.entity.Fanta;
-import com.k0rwin.ordermanager.entity.Meal;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -23,6 +19,7 @@ public class DrinkDeserializer extends StdDeserializer<Drink> {
         super(vc);
     }
 
+    //TODO: get a way so the identifier does not have to equal the class name
     @Override
     public Drink deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         JsonNode node = jp.getCodec().readTree(jp);

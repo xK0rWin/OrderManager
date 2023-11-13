@@ -1,6 +1,5 @@
 package com.k0rwin.ordermanager.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.k0rwin.ordermanager.entity.deserializer.DrinkDeserializer;
 import lombok.Getter;
