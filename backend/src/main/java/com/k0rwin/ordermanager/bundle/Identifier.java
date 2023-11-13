@@ -2,8 +2,13 @@ package com.k0rwin.ordermanager.bundle;
 
 public class Identifier {
 
-    public static String COKE = "Coke";
+    //Drinks
+    public static String COLA = "Coke";
     public static String FANTA = "Fanta";
-    public static String SAUSAGE_SALAD = "Wurstsalat";
-    public static String BAGUETTE = "Baguette";
+    public static String SPEZI = "Spezi";
+
+    //Meals
+    public static String WURSTSALAT = "Wurstsalat";
+    public static String KRUSTI_KEASE = "Käsekrusti";
+    public static String KRUSTI_SCHINKEN = "Schinkenkrusti";
 }

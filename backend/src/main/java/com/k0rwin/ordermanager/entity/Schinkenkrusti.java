@@ -11,19 +11,19 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-@DiscriminatorValue("BAGUETTE")
-public class Baguette extends Meal {
+@DiscriminatorValue("SCHINKENKRUSTI")
+public class Schinkenkrusti extends Meal {
 
-    public Baguette() {
+    public Schinkenkrusti() {
         super();
     }
 
-    public Baguette(Integer amount) {
-        super(Price.BAGUETTE, amount);
+    public Schinkenkrusti(Integer amount) {
+        super(Price.KRUSTI_SCHINKEN, amount);
     }
 
     @Override
     public String getIdentifier() {
-        return Identifier.BAGUETTE;
+        return Identifier.KRUSTI_SCHINKEN;
     }
 }

@@ -1,0 +1,3 @@
+- status property for order: enum -> rdy, delivered, in progress -> replaces active boolean
+- "kellner" property for order
+- endpoint to only get orders of specific "kellner"

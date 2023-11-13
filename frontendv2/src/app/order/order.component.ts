@@ -15,11 +15,12 @@ import { HOST } from '../config';
 export class OrderComponent {
   order: Order = { tableNumber: '', meals: [], drinks: [] };
   availableMeals: Meal[] = [
-    { identifier: 'SausageSalad', amount: 0 },
-    { identifier: 'Baguette', amount: 0 },
+    { identifier: 'Wurstsalat', amount: 0 },
+    { identifier: 'Kaesekrusti', amount: 0 },
+    { identifier: 'Schinkenkrusti', amount: 0 },
   ];
   availableDrinks: Drink[] = [
-    { identifier: 'Coke', amount: 0 },
+    { identifier: 'Cola', amount: 0 },
     { identifier: 'Fanta', amount: 0 },
   ];
 
@@ -46,17 +47,17 @@ export class OrderComponent {
   }
 
   submitOrder(): void {
-    this.order.meals = this.availableMeals;
-    this.order.drinks = this.availableDrinks;
+    this.order.meals = this.availableMeals.filter(meal => meal.amount !== 0);
+    this.order.drinks = this.availableDrinks.filter(meal => meal.amount !== 0);
     console.log('Submitted Order:', this.order);
-    // You can send the order to a service or handle it as needed
 
-    this.http.post<HttpResponse<String>>(HOST + "/order", this.order).subscribe(
-      response => {
-        if (response.status === 200) {
-          console.log(response.body);
+    this.http.post<HttpResponse<String>>(HOST + "/order", this.order).subscribe({
+      next: response => {
+        if (typeof response === 'number') {
+          this,this.router.navigate(['/order-confirm', response]);
         }
+
       }
-    );
+    });
   }
 }

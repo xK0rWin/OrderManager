@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from '../models/order.model';
+import { HttpClient } from '@angular/common/http';
+import { HOST } from '../config';
 
 @Component({
   selector: 'app-order-confirm',
@@ -9,5 +11,36 @@ import { Order } from '../models/order.model';
   styleUrls: ['./order-confirm.component.scss']
 })
 export class OrderConfirmComponent {
+  id!: string;
+  order!: Order;
 
+  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id')!;
+
+      this.http.get<Order>(HOST + "/order/" + this.id).subscribe({
+        next: order => {
+          this.order = order;
+        }
+      });
+    });
+  }
+
+  getTotal() : number {
+    let total = 0;
+
+    // Calculate total for meals
+    for (const meal of this.order.meals) {
+      total += meal.amount * meal.price!;
+    }
+
+    // Calculate total for drinks
+    for (const drink of this.order.drinks) {
+      total += drink.amount * drink.price!;
+    }
+
+    return total;
+  }
 }
