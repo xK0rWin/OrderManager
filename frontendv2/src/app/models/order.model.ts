@@ -7,5 +7,7 @@ export interface Order {
     meals: Meal[];
     drinks: Drink[];
     dateTime?: Date;
+    status?: string;
+    waiter?: string;
   }
   

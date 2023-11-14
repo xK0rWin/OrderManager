@@ -9,6 +9,6 @@ public class Price {
     //Meals
     public static double WURSTSALAT = 33.50;
     public static double KRUSTI_KEASE = 11.50;
-    public static double KRUSTI_SCHINKEN = 12.59;
+    public static double KRUSTI_SCHINKEN = 12.50;
 
 }

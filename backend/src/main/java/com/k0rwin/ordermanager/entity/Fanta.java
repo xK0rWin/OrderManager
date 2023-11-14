@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 public class Fanta extends Drink {
 
     public Fanta() {
-        super();
+        super(Price.FANTA);
     }
 
     public Fanta(Integer amount) {

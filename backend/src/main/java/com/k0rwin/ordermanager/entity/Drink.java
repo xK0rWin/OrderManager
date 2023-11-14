@@ -1,7 +1,7 @@
 package com.k0rwin.ordermanager.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.k0rwin.ordermanager.entity.deserializer.DrinkDeserializer;
+import com.k0rwin.ordermanager.deserializer.DrinkDeserializer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +25,10 @@ public abstract class Drink {
     private Integer amount;
 
     public Drink(){}
+
+    public Drink(Double price) {
+        this.price = price;
+    }
 
     public Drink(Double price, Integer amount) {
         this.price = price;

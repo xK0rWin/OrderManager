@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 public class Cola extends Drink {
 
     public Cola() {
-        super();
+        super(Price.COLA);
     }
 
     public Cola(Integer amount) {

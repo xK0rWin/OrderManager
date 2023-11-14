@@ -11,7 +11,7 @@
         <h4>Meals:</h4>
         <ul class="list-group">
         <li *ngFor="let meal of order?.meals" class="list-group-item">
-            {{ meal?.identifier }} - Quantity: {{ meal?.amount }} - Price: {{ meal?.price | currency:'EUR':'symbol':'1.2-2' }}
+            {{ meal?.identifier }} - Amount: {{ meal?.amount }} - Price: {{ meal?.price | currency:'EUR':'symbol':'1.2-2' }}
             - Total: {{ (meal?.price || 0) * (meal?.amount || 0) | currency:'EUR':'symbol':'1.2-2' }}
         </li>
         <li *ngIf="(!order?.meals || order.meals.length === 0)" class="list-group-item">No meals selected</li>
@@ -24,7 +24,7 @@
         <h4>Drinks:</h4>
         <ul class="list-group">
         <li *ngFor="let drink of order?.drinks" class="list-group-item">
-            {{ drink?.identifier }} - Quantity: {{ drink?.amount }} - Price: {{ drink?.price | currency:'EUR':'symbol':'1.2-2' }}
+            {{ drink?.identifier }} - Amount: {{ drink?.amount }} - Price: {{ drink?.price | currency:'EUR':'symbol':'1.2-2' }}
             - Total: {{ (drink?.price || 0) * (drink?.amount || 0) | currency:'EUR':'symbol':'1.2-2' }}
         </li>
         <li *ngIf="(!order?.drinks || order.drinks.length === 0)" class="list-group-item">No drinks selected</li>

@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 public class Kaesekrusti extends Meal {
 
     public Kaesekrusti() {
-        super();
+        super(Price.KRUSTI_KEASE);
     }
 
     public Kaesekrusti(Integer amount) {

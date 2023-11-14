@@ -1,5 +1,6 @@
 package com.k0rwin.ordermanager.entity;
 
+import com.k0rwin.ordermanager.util.OrderStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,15 +26,19 @@ public class Order {
     private List<Drink> drinks = new ArrayList<>();
     @Column(name = "time", nullable = false)
     private LocalDateTime dateTime;
-    @Column(name = "active")
-    private boolean active;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatusEnum status;
+    @Column(name = "waiter", nullable = false)
+    private String waiter;
 
     public Order() {
     }
 
-    public Order(Integer tableNumber ,LocalDateTime dateTime, boolean active) {
+    public Order(Integer tableNumber ,LocalDateTime dateTime, OrderStatusEnum status, String waiter) {
         this.tableNumber = tableNumber;
         this.dateTime = dateTime;
-        this.active = active;
+        this.status = status;
+        this.waiter = waiter;
     }
 }

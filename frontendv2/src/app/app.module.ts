@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { OrderComponent } from './order/order.component';
 import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
 import { HomeComponent } from './home/home.component';
+import { DashboardMealComponent } from './dashboard-meal/dashboard-meal.component';
+import { DashboardDrinkComponent } from './dashboard-drink/dashboard-drink.component';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { HomeComponent } from './home/home.component';
     OrderComponent,
     OrderConfirmComponent,
     HomeComponent,
+    DashboardMealComponent,
+    DashboardDrinkComponent,
   ],
   imports: [
     CommonModule,
