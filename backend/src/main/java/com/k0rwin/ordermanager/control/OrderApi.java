@@ -11,7 +11,9 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -27,6 +29,7 @@ public class OrderApi {
 
     private HashMap<String, Double> meals = new HashMap<String, Double>();
     private HashMap<String, Double> drinks = new HashMap<String, Double>();
+    private final SseEmitter emitter = new SseEmitter();
     @Autowired
     OrderRepository orderRepository;
 
@@ -42,6 +45,31 @@ public class OrderApi {
                 Drink drink = (Drink) clazz.getDeclaredConstructor().newInstance();
                 drinks.put(clazz.getSimpleName(), drink.getPrice());
             }
+        }
+    }
+
+    @GetMapping("/sse")
+    public SseEmitter handleSse() {
+        scheduleKeepAlive();
+        return emitter;
+    }
+
+    @Scheduled(fixedDelay = 30000) // 30 seconds
+    private void scheduleKeepAlive() {
+        try {
+            // Send a comment to keep the connection alive
+            emitter.send(SseEmitter.event().comment("Keep-alive"));
+        } catch (IOException e) {
+            // Handle exceptions if necessary
+            e.printStackTrace();
+        }
+    }
+
+    public void sendSseEvent(String message) {
+        try {
+            emitter.send(SseEmitter.event().data(message));
+        } catch (Exception e) {
+            emitter.complete();
         }
     }
 
@@ -67,6 +95,7 @@ public class OrderApi {
         order.setStatus(OrderStatusEnum.OPEN);
         order.setDateTime(LocalDateTime.now());
         Order entity = orderRepository.save(order);
+        sendSseEvent("new order created");
         return new ResponseEntity<>(entity.getId(), HttpStatus.OK);
     }
 

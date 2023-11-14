@@ -12,8 +12,10 @@
       <p>Select Meals:</p>
       <div class="btn-group d-flex flex-row" role="group" aria-label="Meal Buttons">
         <div *ngFor="let meal of availableMeals" class="d-flex flex-column">
-          <button type="button" class="btn btn-primary m-1" (click)="addMeal(meal)">
-            {{ meal.identifier }} <p>({{meal.price!}}€)</p> <span class="badge bg-secondary">{{ meal.amount }}</span>
+          <button type="button" class="btn btn-primary m-1 d-flex align-items-center" (click)="addMeal(meal)">
+            {{ meal.identifier }}
+            <span class="ms-2">({{ meal.price! | currency:'EUR':'symbol':'1.2-2'}})</span>
+            <span class="badge bg-secondary ms-2">{{ meal.amount }}</span>
           </button>
           <span>{{ (meal.price! * meal.amount) | currency:'EUR':'symbol':'1.2-2' }}</span>
         </div>
@@ -24,8 +26,10 @@
       <p>Select Drinks:</p>
       <div class="btn-group d-flex flex-row" role="group" aria-label="Drink Buttons">
         <div *ngFor="let drink of availableDrinks" class="d-flex flex-column">
-          <button type="button" class="btn btn-primary m-1" (click)="addDrink(drink)">
-            {{ drink.identifier }} <p>({{drink.price!}}€)</p> <span class="badge bg-secondary">{{ drink.amount }}</span>
+          <button type="button" class="btn btn-primary m-1 d-flex align-items-center" (click)="addDrink(drink)">
+            {{ drink.identifier }}
+            <span class="ms-2">({{ drink.price! | currency:'EUR':'symbol':'1.2-2' }})</span>
+            <span class="badge bg-secondary ms-2">{{ drink.amount }}</span>
           </button>
           <span>{{ (drink.price! * drink.amount) | currency:'EUR':'symbol':'1.2-2' }}</span>
         </div>
