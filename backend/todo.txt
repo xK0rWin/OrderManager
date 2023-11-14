@@ -1,4 +1,3 @@
 - endpoint to only get orders of specific "kellner"
-- load prices in frontend order page -> show total per meal/drink and update whenever you add something
 - make /meals and /drinks return a Map of ALL types even when amount = 0 (?)
 - implement SSE to update frontend via callbacks

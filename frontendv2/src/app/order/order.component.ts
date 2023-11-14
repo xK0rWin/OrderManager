@@ -89,4 +89,20 @@ export class OrderComponent implements OnInit {
   back() : void {
     this.router.navigate(['']);
   }
+
+  getTotal() : number {
+    let total = 0;
+
+    // Calculate total for meals
+    for (const meal of this.availableMeals) {
+      total += meal.amount * meal.price!;
+    }
+
+    // Calculate total for drinks
+    for (const drink of this.availableDrinks) {
+      total += drink.amount * drink.price!;
+    }
+
+    return total;
+  }
 }
