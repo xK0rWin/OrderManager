@@ -1,3 +1,2 @@
-- endpoint to only get orders of specific "kellner"
 - make /meals and /drinks return a Map of ALL types even when amount = 0 (?)
 - implement SSE to update frontend via callbacks

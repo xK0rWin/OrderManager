@@ -153,5 +153,15 @@ public class OrderApi {
         return new ResponseEntity<>(this.drinks, HttpStatus.OK);
     }
 
+    @GetMapping("/waiter/{name}")
+    public ResponseEntity<List<Order>> getOrdersByWaiter(@PathVariable String name) {
+
+        List<Order> openOrders = orderRepository.findAll().stream()
+                .filter(order -> order.getStatus() != OrderStatusEnum.DELIVERED)
+                .filter(order -> order.getWaiter().equals(name))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(openOrders, HttpStatus.OK);
+    }
+
     //TODO endpoint to remove items from order? -> add "served" property to item (later)
 }
