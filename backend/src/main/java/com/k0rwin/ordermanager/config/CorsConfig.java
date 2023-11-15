@@ -32,7 +32,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Allow requests from the specified origin
-        config.addAllowedOrigin("https://cow-aware-peacock.ngrok-free.app");
+        config.addAllowedOrigin("http://85.215.57.123:8081");
 
         // Allow other necessary CORS headers
         config.addAllowedHeader("*");
