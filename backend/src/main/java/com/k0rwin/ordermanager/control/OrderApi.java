@@ -106,6 +106,7 @@ public class OrderApi {
         if (order.isPresent()) {
             order.get().setStatus(status);
             orderRepository.save(order.get());
+            sendSseEvent("order status updated");
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
