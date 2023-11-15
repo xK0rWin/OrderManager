@@ -50,19 +50,7 @@ public class OrderApi {
 
     @GetMapping("/sse")
     public SseEmitter handleSse() {
-        scheduleKeepAlive();
         return emitter;
-    }
-
-    @Scheduled(fixedDelay = 30000) // 30 seconds
-    private void scheduleKeepAlive() {
-        try {
-            // Send a comment to keep the connection alive
-            emitter.send(SseEmitter.event().comment("Keep-alive"));
-        } catch (IOException e) {
-            // Handle exceptions if necessary
-            e.printStackTrace();
-        }
     }
 
     public void sendSseEvent(String message) {
@@ -106,6 +94,7 @@ public class OrderApi {
         if (order.isPresent()) {
             order.get().setStatus(status);
             orderRepository.save(order.get());
+            sendSseEvent("order status updated");
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
