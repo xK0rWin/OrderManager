@@ -29,7 +29,7 @@ public class OrderApi {
 
     private HashMap<String, Double> meals = new HashMap<String, Double>();
     private HashMap<String, Double> drinks = new HashMap<String, Double>();
-    private final SseEmitter emitter = new SseEmitter();
+    private final SseEmitter emitter = new SseEmitter(-1L);
     @Autowired
     OrderRepository orderRepository;
 
