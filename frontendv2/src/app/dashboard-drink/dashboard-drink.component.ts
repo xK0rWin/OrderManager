@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Order } from '../models/order.model';
 import { HttpClient } from '@angular/common/http';
 import { HOST } from '../config';
@@ -9,7 +9,7 @@ import { SseService } from '../sse-service.service';
   templateUrl: './dashboard-drink.component.html',
   styleUrl: './dashboard-drink.component.scss'
 })
-export class DashboardDrinkComponent {
+export class DashboardDrinkComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
   drinkOverview: Map<string, number> = new Map();
 
@@ -42,6 +42,10 @@ export class DashboardDrinkComponent {
         });
       });
     });
+  }
+
+  ngOnDestroy() : void {
+    this.sseService.disconnect();
   }
 
   setOrderStatus(order: Order, status: string) {
