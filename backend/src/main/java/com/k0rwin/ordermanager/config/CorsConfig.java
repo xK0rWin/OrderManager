@@ -2,6 +2,9 @@ package com.k0rwin.ordermanager.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -21,5 +24,24 @@ public class CorsConfig {
                         .maxAge(3600);
             }
         };
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+
+        // Allow requests from the specified origin
+        config.addAllowedOrigin("http://85.215.57.123:4200");
+
+        // Allow other necessary CORS headers
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }

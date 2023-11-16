@@ -10,14 +10,13 @@ export class SseService {
     private eventSource!: EventSource;
 
     connect(): Observable<MessageEvent> {
-        this.eventSource = new EventSource(HOST + '/order/sse');
+        
+        if (!this.eventSource) {
+            this.eventSource = new EventSource(HOST + '/order/sse');
+        }
+
         return new Observable(observer => {
-            this.eventSource.onmessage = event => {
-                // Ignore comments
-                console.log(event.data);
-                if (event.data === ': Keep-alive') {
-                    return;
-                }
+            this.eventSource!.onmessage = event => {
                 observer.next(event);
             };
         });

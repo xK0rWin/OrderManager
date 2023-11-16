@@ -12,19 +12,25 @@ import { HOST } from '../config';
 })
 export class OrderConfirmComponent {
   id!: string;
-  order!: Order;
+  loaded: boolean = false;
+  order: any;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.id = params.get('id')!;
-
-      this.http.get<Order>(HOST + "/order/" + this.id).subscribe({
-        next: order => {
-          this.order = order;
-        }
-      });
+    this.route.paramMap.subscribe({
+      next: params => {
+        this.id = params.get('id')!;
+  
+        this.http.get<Order>(HOST + "/order/" + this.id).subscribe({
+          next: order => {
+            this.order = order;
+          },
+          complete: () => {
+            this.loaded = true;
+          }
+        });
+      }
     });
   }
 

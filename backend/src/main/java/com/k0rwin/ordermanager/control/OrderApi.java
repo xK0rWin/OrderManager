@@ -9,12 +9,14 @@ import com.k0rwin.ordermanager.util.OrderStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
@@ -48,21 +50,11 @@ public class OrderApi {
         }
     }
 
-    @GetMapping("/sse")
-    public SseEmitter handleSse() {
-        scheduleKeepAlive();
-        return emitter;
-    }
-
-    @Scheduled(fixedDelay = 30000) // 30 seconds
-    private void scheduleKeepAlive() {
-        try {
-            // Send a comment to keep the connection alive
-            emitter.send(SseEmitter.event().comment("Keep-alive"));
-        } catch (IOException e) {
-            // Handle exceptions if necessary
-            e.printStackTrace();
-        }
+    @GetMapping(value = "/sse", produces = "text/event-stream")
+    public ResponseEntity<SseEmitter> handleSse() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_TYPE, "text/event-stream");
+        return new ResponseEntity<>(emitter, headers, HttpStatus.OK);
     }
 
     public void sendSseEvent(String message) {
@@ -73,7 +65,7 @@ public class OrderApi {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Order> getOrder(@PathVariable Long id) {
         Optional<Order> order = orderRepository.findById(id);
 
@@ -83,14 +75,14 @@ public class OrderApi {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("")
+    @GetMapping(value = "", produces = "application/json")
     public ResponseEntity<List<Order>> getOrders() {
         List<Order> openOrders = orderRepository.findAll().stream()
                 .filter(order -> order.getStatus() != OrderStatusEnum.DELIVERED).collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping(value = "", produces = "application/json")
     public ResponseEntity<Long> postOrder(@RequestBody Order order) {
         order.setStatus(OrderStatusEnum.OPEN);
         order.setDateTime(LocalDateTime.now());
@@ -99,7 +91,7 @@ public class OrderApi {
         return new ResponseEntity<>(entity.getId(), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/{status}")
+    @PutMapping(value = "/{id}/{status}", produces = "application/json")
     public ResponseEntity<Void> updateStatus(@PathVariable Long id, @PathVariable OrderStatusEnum status) {
         Optional<Order> order = orderRepository.findById(id);
 
@@ -113,7 +105,7 @@ public class OrderApi {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         if (orderRepository.existsById(id)) {
             orderRepository.deleteById(id);

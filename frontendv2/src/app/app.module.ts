@@ -10,6 +10,8 @@ import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardMealComponent } from './dashboard-meal/dashboard-meal.component';
 import { DashboardDrinkComponent } from './dashboard-drink/dashboard-drink.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../authInterceptor';
 
 
 @NgModule({
@@ -28,7 +30,13 @@ import { DashboardDrinkComponent } from './dashboard-drink/dashboard-drink.compo
     HttpClientModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

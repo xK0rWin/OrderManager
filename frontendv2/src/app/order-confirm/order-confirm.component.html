@@ -1,11 +1,11 @@
-<div class="container mt-4">
+<div class="container mt-4" *ngIf="loaded">
     <h2>Order Details</h2>
-  
+    
     <!-- Table Number -->
     <div class="mb-3">
-      <strong>Table Number:</strong> {{ order.tableNumber }}
+        <strong>Table Number:</strong> {{ order.tableNumber }}
     </div>
-  
+    
     <!-- Meals Section -->
     <div class="mb-3">
         <h4>Meals:</h4>
@@ -17,8 +17,8 @@
         <li *ngIf="(!order?.meals || order.meals.length === 0)" class="list-group-item">No meals selected</li>
         </ul>
     </div>
-  
-  
+    
+    
     <!-- Drinks Section -->
     <div class="mb-3">
         <h4>Drinks:</h4>
@@ -35,6 +35,5 @@
     <button class="btn btn-primary" [routerLink]="['']">Back to Home</button>
     <div class="mt-3">
         <strong>Order Total:</strong> {{ getTotal() | currency:'EUR':'symbol':'1.2-2' }}
-      </div>
-  </div>
-  
+        </div>
+    </div>    

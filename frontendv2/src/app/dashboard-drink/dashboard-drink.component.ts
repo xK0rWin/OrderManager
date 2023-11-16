@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Order } from '../models/order.model';
 import { HttpClient } from '@angular/common/http';
 import { HOST } from '../config';
@@ -9,7 +9,7 @@ import { SseService } from '../sse-service.service';
   templateUrl: './dashboard-drink.component.html',
   styleUrl: './dashboard-drink.component.scss'
 })
-export class DashboardDrinkComponent {
+export class DashboardDrinkComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
   drinkOverview: Map<string, number> = new Map();
 
@@ -30,12 +30,12 @@ export class DashboardDrinkComponent {
     this.sseService.connect().subscribe(event => {
       console.log('Received event:', event);
       this.zone.run(() => {
-        this.http.get<Order[]>(HOST + "/order/mealonly").subscribe({
+        this.http.get<Order[]>(HOST + "/order/drinkonly").subscribe({
           next: orders => {
             this.orders = orders;
           }
         });
-        this.http.get<Map<string, number>>(HOST + "/order/meals").subscribe({
+        this.http.get<Map<string, number>>(HOST + "/order/drinks").subscribe({
           next: result => {
             this.drinkOverview = result;
           }
@@ -44,9 +44,15 @@ export class DashboardDrinkComponent {
     });
   }
 
+  ngOnDestroy() : void {
+    this.sseService.disconnect();
+  }
+
   setOrderStatus(order: Order, status: string) {
     order.status = status;
+    //TODO http update order
     this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({
+      
     });
   }
 }
