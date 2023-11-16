@@ -14,7 +14,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
   waiterName!: string;
 
-  constructor(private router: Router, private http: HttpClient, private sseService: SseService, private zone: NgZone) {}
+  constructor(private router: Router, private http: HttpClient, private sseService: SseService, private zone: NgZone) {
+    const eventSource = this.sseService.openEventSource();
+    console.log("Opened EventSource");
+    eventSource.onmessage = (event) => {
+      console.log('Received event:', event);
+      this.zone.run(() => {
+        this.http.get<Order[]>(HOST + "/order").subscribe({
+          next: orders => {
+            this.orders = orders;
+          }
+        });
+      });
+    }
+  }
 
   ngOnInit(): void {
     let waiter = localStorage.getItem("waiter_name");
@@ -27,17 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: orders => {
         this.orders = orders;
       }
-    });
-
-    this.sseService.connect().subscribe(event => {
-      console.log('Received event:', event);
-      this.zone.run(() => {
-        this.http.get<Order[]>(HOST + "/order").subscribe({
-          next: orders => {
-            this.orders = orders;
-          }
-        });
-      });
     });
   }
 
@@ -57,6 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() : void {
-    this.sseService.disconnect();
+    console.log("Eventsource destroyed");
+    this.sseService.closeEventSource();
   }
 }

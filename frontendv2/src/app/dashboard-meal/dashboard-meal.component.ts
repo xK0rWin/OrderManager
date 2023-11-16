@@ -14,21 +14,10 @@ export class DashboardMealComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
   mealOverview: Map<string, number> = new Map();
 
-  constructor(private http: HttpClient, private sseService: SseService, private zone: NgZone) {}
-
-  ngOnInit(): void {
-    this.http.get<Order[]>(HOST + "/order/mealonly").subscribe({
-      next: orders => {
-        this.orders = orders;
-      }
-    });
-    this.http.get<Map<string, number>>(HOST + "/order/meals").subscribe({
-      next: result => {
-        this.mealOverview = result;
-      }
-    });
-
-    this.sseService.connect().subscribe(event => {
+  constructor(private http: HttpClient, private sseService: SseService, private zone: NgZone) {
+    const eventSource = this.sseService.openEventSource();
+    console.log("Opened EventSource");
+    eventSource.onmessage = (event) => {
       console.log('Received event:', event);
       this.zone.run(() => {
         this.http.get<Order[]>(HOST + "/order/mealonly").subscribe({
@@ -42,11 +31,25 @@ export class DashboardMealComponent implements OnInit, OnDestroy {
           }
         });
       });
+    }
+  }
+
+  ngOnInit(): void {
+    this.http.get<Order[]>(HOST + "/order/mealonly").subscribe({
+      next: orders => {
+        this.orders = orders;
+      }
+    });
+    this.http.get<Map<string, number>>(HOST + "/order/meals").subscribe({
+      next: result => {
+        this.mealOverview = result;
+      }
     });
   }
 
   ngOnDestroy() : void {
-    this.sseService.disconnect();
+    console.log("Eventsource destroyed");
+    this.sseService.closeEventSource();
   }
 
   setOrderStatus(order: Order, status: string) {

@@ -20,9 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,7 +29,7 @@ public class OrderApi {
 
     private HashMap<String, Double> meals = new HashMap<String, Double>();
     private HashMap<String, Double> drinks = new HashMap<String, Double>();
-    private final SseEmitter emitter = new SseEmitter(-1L);
+    private final List<SseEmitter> emitters = new ArrayList<>();
     @Autowired
     OrderRepository orderRepository;
 
@@ -51,17 +49,26 @@ public class OrderApi {
     }
 
     @GetMapping(value = "/sse", produces = "text/event-stream")
-    public ResponseEntity<SseEmitter> handleSse() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_TYPE, "text/event-stream");
-        return new ResponseEntity<>(emitter, headers, HttpStatus.OK);
+    public SseEmitter handleSse() {
+        SseEmitter emitter = new SseEmitter(-1L);
+        emitters.add(emitter);
+
+        // Remove the emitter when the client disconnects
+        emitter.onCompletion(() -> emitters.remove(emitter));
+        emitter.onTimeout(() -> emitters.remove(emitter));
+
+        return emitter;
     }
 
     public void sendSseEvent(String message) {
-        try {
-            emitter.send(SseEmitter.event().data(message));
-        } catch (Exception e) {
-            emitter.complete();
+        Iterator<SseEmitter> iterator = emitters.iterator();
+        while (iterator.hasNext()) {
+            SseEmitter emitter = iterator.next();
+            try {
+                emitter.send(SseEmitter.event().data(message));
+            } catch (IOException e) {
+                iterator.remove();
+            }
         }
     }
 
