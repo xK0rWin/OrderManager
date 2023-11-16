@@ -1,5 +1,4 @@
 .container {
-    max-width: 600px;
     margin: auto;
   }
   
@@ -11,3 +10,14 @@
     margin-left: 5px;
   }
   
+  .menuitem {
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+  }
+
+  .menubox {
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+  }

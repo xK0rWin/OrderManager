@@ -1,4 +1,4 @@
 - get delivered orders -> also for missclicks to revert
 - make order configureable in /order-confirm
-- buttons for + and - in /order instead of only adding also removing
 - endpoint to remove items from order? -> add "served" property to item
+- order property delivered at?
