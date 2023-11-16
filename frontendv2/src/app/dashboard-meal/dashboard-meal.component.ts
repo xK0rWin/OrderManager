@@ -54,10 +54,7 @@ export class DashboardMealComponent implements OnInit, OnDestroy {
 
   setOrderStatus(order: Order, status: string) {
     order.status = status;
-    //TODO http update order
-    this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({
-      
-    });
+    this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({});
   }
 
 }

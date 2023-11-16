@@ -25,7 +25,6 @@ export class OrderComponent implements OnInit {
       next: meals => {
         const mealEntries = Object.entries(meals);
         for (let [meal, price] of mealEntries) {
-          // Explicitly cast the value to a number
           this.availableMeals.push({ identifier: meal, amount: 0, price: Number(price) });
         }
       }
@@ -35,7 +34,6 @@ export class OrderComponent implements OnInit {
       next: drinks => {
         const drinkEntries = Object.entries(drinks);
         for (let [drink, price] of drinkEntries) {
-          // Explicitly cast the value to a number
           this.availableDrinks.push({ identifier: drink, amount: 0, price: Number(price) });
         }
         console.log(this.availableDrinks);

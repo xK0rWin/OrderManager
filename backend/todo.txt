@@ -1,6 +1,4 @@
-- make /meals and /drinks return a Map of ALL types even when amount = 0 (?)
-- implement SSE to update frontend via callbacks
 - get delivered orders -> also for missclicks to revert
-- in /order -> let waiter set order to served aswell
 - make order configureable in /order-confirm
 - buttons for + and - in /order instead of only adding also removing
+- endpoint to remove items from order? -> add "served" property to item

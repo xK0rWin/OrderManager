@@ -62,4 +62,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log("Eventsource destroyed");
     this.sseService.closeEventSource();
   }
+
+  setOrderStatus(order: Order, status: string) {
+    order.status = status;
+    this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({});
+  }
 }

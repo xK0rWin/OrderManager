@@ -89,6 +89,13 @@ public class OrderApi {
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/delivered", produces = "application/json")
+    public ResponseEntity<List<Order>> getDeliveredOrders() {
+        List<Order> openOrders = orderRepository.findAll().stream()
+                .filter(order -> order.getStatus() == OrderStatusEnum.DELIVERED).collect(Collectors.toList());
+        return new ResponseEntity<>(openOrders, HttpStatus.OK);
+    }
+
     @PostMapping(value = "", produces = "application/json")
     public ResponseEntity<Long> postOrder(@RequestBody Order order) {
         order.setStatus(OrderStatusEnum.OPEN);
@@ -191,6 +198,4 @@ public class OrderApi {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
-
-    //TODO endpoint to remove items from order? -> add "served" property to item (later)
 }
