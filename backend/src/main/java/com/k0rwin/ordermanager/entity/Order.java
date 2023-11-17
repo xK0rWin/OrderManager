@@ -3,6 +3,8 @@ package com.k0rwin.ordermanager.entity;
 import com.k0rwin.ordermanager.util.OrderStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,8 +22,12 @@ public class Order {
     private Long id;
     @Column(name = "table_nr", nullable = false)
     private Integer tableNumber;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "order_id")
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Meal> meals = new ArrayList<>();
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "order_id")
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Drink> drinks = new ArrayList<>();
     @Column(name = "time", nullable = false)

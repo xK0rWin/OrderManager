@@ -28,6 +28,7 @@ public abstract class Drink {
 
     public Drink(Double price) {
         this.price = price;
+        this.amount = 0;
     }
 
     public Drink(Double price, Integer amount) {

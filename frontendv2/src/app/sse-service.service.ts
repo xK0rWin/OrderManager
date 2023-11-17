@@ -7,24 +7,22 @@ import { HOST } from './config';
 })
 export class SseService {
 
-    private eventSource!: EventSource;
+    private eventSource: EventSource | undefined;
 
-    connect(): Observable<MessageEvent> {
-        
-        if (!this.eventSource) {
-            this.eventSource = new EventSource(HOST + '/order/sse');
-        }
+  constructor() {}
 
-        return new Observable(observer => {
-            this.eventSource!.onmessage = event => {
-                observer.next(event);
-            };
-        });
+  openEventSource(): EventSource {
+    if (!this.eventSource) {
+      this.eventSource = new EventSource(HOST + "/order/sse");
     }
 
-    disconnect() {
-        if (this.eventSource) {
-            this.eventSource.close();
-        }
+    return this.eventSource;
+  }
+
+  closeEventSource(): void {
+    if (this.eventSource) {
+      this.eventSource.close();
+      this.eventSource = undefined;
     }
+  }
 }

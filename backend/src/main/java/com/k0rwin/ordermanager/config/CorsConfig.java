@@ -32,7 +32,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Allow requests from the specified origin
-        config.addAllowedOrigin("http://85.215.57.123:4200");
+        config.addAllowedOrigin("http://localhost:4200");
 
         // Allow other necessary CORS headers
         config.addAllowedHeader("*");
