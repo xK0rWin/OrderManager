@@ -17,7 +17,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200")  // Add the allowed origins
+                        .allowedOrigins("http://localhost:4200", "http://85.215.57.123:4200")  // Add the allowed origins
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true)
@@ -33,6 +33,7 @@ public class CorsConfig {
 
         // Allow requests from the specified origin
         config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("http://85.215.57.123:4200");
 
         // Allow other necessary CORS headers
         config.addAllowedHeader("*");
