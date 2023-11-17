@@ -35,5 +35,27 @@
           </div>
       </div>
     </div>
+    <div>
+      <button class="btn btn-info mt-2" (click)="refreshPassedOrders()">Show delivered Orders</button>
+      <div *ngIf="showDelivered">
+        <div *ngFor="let order of deliveredOrders" class="card mb-3 mx-auto" style="max-width: 600px;">
+          <div class="card-body mb-2 row">
+            <div class="col-8">
+              <h5 class="card-title">Order: {{ order.id }} - {{ order.dateTime | date: 'short' }}</h5>
+              <h5 class="col-4 mb-1 mt-4">Status: {{ order.status }}</h5>
+      
+              <div class="col-4 mb-1 mt-4">
+                <h5>Table: {{ order.tableNumber }}</h5>
+              </div>
+            </div>
+            <div class="col-4 mb-1 d-flex align-items-center justify-content-center flex-column">
+              <button class="btn btn-primary mt-2" (click)="navigateToDetails(order)">View Details</button>
+              <button class="btn btn-danger mt-2" (click)="setOrderStatus(order, 'OPEN')">Set Open</button>
+              <button class="btn btn-success mt-2" (click)="setOrderStatus(order, 'READY')">Set Ready</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
   

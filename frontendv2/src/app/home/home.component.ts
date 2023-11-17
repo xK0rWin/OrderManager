@@ -12,7 +12,9 @@ import { SseService } from '../sse-service.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
+  deliveredOrders: Order[] = [];
   waiterName!: string;
+  showDelivered: boolean = false;
 
   constructor(private router: Router, private http: HttpClient, private sseService: SseService, private zone: NgZone) {
     const eventSource = this.sseService.openEventSource();
@@ -26,6 +28,9 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         });
       });
+      if (this.showDelivered) {
+        this.refreshPassedOrders(); //todo provisional
+      }
     }
   }
 
@@ -66,5 +71,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   setOrderStatus(order: Order, status: string) {
     order.status = status;
     this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({});
+  }
+
+  refreshPassedOrders() : void {
+    this.showDelivered = true;
+    this.zone.run(() => {
+      this.http.get<Order[]>(HOST + "/order/delivered").subscribe({
+        next: orders => {
+          this.deliveredOrders = orders;
+        }
+      });
+    });
   }
 }
