@@ -26,8 +26,13 @@ public class CorsConfig {
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("DELETE");
 
+
+
         // Allow credentials
         config.setAllowCredentials(true);
+
+        // Set max age to 3600 seconds (1 hour)
+        config.setMaxAge(3600L);
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
