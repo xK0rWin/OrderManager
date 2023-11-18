@@ -5,10 +5,8 @@
             <h2>Open Orders</h2>
             <ul class="list-group">
                 <li *ngFor="let order of orders" class="list-group-item" [style.background-color]="getBgColor(order)">
-                    <div>
-                        <strong>Order {{ order.id }}</strong>
-                    </div>
-                    <div>Table: {{ order.tableNumber }}</div>
+                    <div><strong>Table: {{ order.tableNumber }}</strong></div>
+                    <div>Order {{ order.id }}</div>
                     <div>Waiter: {{ order.waiter }}</div>
                     <div *ngFor="let drink of order.drinks">
                         <span>{{ drink.identifier }} (Amount: {{ drink.amount }})</span>
@@ -26,10 +24,8 @@
             <h2>Ready Orders</h2>
             <ul class="list-group">
                 <li *ngFor="let order of rdyOrders" class="list-group-item" [style.background-color]="getBgColor(order)">
-                    <div>
-                        <strong>Order {{ order.id }}</strong>
-                    </div>
-                    <div>Table: {{ order.tableNumber }}</div>
+                    <div><strong>Table: {{ order.tableNumber }}</strong></div>
+                    <div>Order {{ order.id }}</div>
                     <div>Waiter: {{ order.waiter }}</div>
                     <div *ngFor="let drink of order.drinks">
                         <span>{{ drink.identifier }} (Amount: {{ drink.amount }})</span>
