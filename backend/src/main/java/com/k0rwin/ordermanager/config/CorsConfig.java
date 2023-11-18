@@ -20,7 +20,7 @@ public class CorsConfig {
                         .allowedOrigins("*")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
-                        .allowCredentials(true)
+                        .allowCredentials(false)
                         .maxAge(3600);
             }
         };
@@ -37,6 +37,7 @@ public class CorsConfig {
         config.addAllowedMethod("POST");
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("DELETE");
+        config.setAllowCredentials(false);
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
