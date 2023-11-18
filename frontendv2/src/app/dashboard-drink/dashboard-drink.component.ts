@@ -11,7 +11,7 @@ import { SseService } from '../sse-service.service';
 })
 export class DashboardDrinkComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
-  drinkOverview: Map<string, number> = new Map();
+  rdyOrders: Order[] = [];
 
   constructor(private http: HttpClient, private sseService: SseService, private zone: NgZone) {
     const eventSource = this.sseService.openEventSource();
@@ -19,14 +19,14 @@ export class DashboardDrinkComponent implements OnInit, OnDestroy {
     eventSource.onmessage = (event) => {
       console.log('Received event:', event);
       this.zone.run(() => {
-        this.http.get<Order[]>(HOST + "/order/drinkonly").subscribe({
+        this.http.get<Order[]>(HOST + "/order/drinkonly/open").subscribe({
           next: orders => {
             this.orders = orders;
           }
         });
-        this.http.get<Map<string, number>>(HOST + "/order/drinks").subscribe({
-          next: result => {
-            this.drinkOverview = result;
+        this.http.get<Order[]>(HOST + "/order/drinkonly/ready").subscribe({
+          next: orders => {
+            this.rdyOrders = orders;
           }
         });
       });
@@ -34,14 +34,14 @@ export class DashboardDrinkComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.http.get<Order[]>(HOST + "/order/drinkonly").subscribe({
+    this.http.get<Order[]>(HOST + "/order/drinkonly/open").subscribe({
       next: orders => {
         this.orders = orders;
       }
     });
-    this.http.get<Map<string, number>>(HOST + "/order/drinks").subscribe({
-      next: result => {
-        this.drinkOverview = result;
+    this.http.get<Order[]>(HOST + "/order/drinkonly/ready").subscribe({
+      next: orders => {
+        this.rdyOrders = orders;
       }
     });
   }
@@ -54,5 +54,16 @@ export class DashboardDrinkComponent implements OnInit, OnDestroy {
   setOrderStatus(order: Order, status: string) {
     order.status = status;
     this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({});
+  }
+
+  getBgColor(order: Order) : string {
+    switch (order.status) {
+      case 'OPEN':
+        return "white";
+      case 'READY':
+        return 'lightgreen';
+      default:
+        return 'white';
+    }
   }
 }

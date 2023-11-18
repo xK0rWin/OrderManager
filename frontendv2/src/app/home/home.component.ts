@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     eventSource.onmessage = (event) => {
       console.log('Received event:', event);
       this.zone.run(() => {
-        this.http.get<Order[]>(HOST + "/order").subscribe({
+        this.http.get<Order[]>(HOST + "/order/desc").subscribe({
           next: orders => {
             this.orders = orders;
           }
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       this.waiterName = "";
     }
-    this.http.get<Order[]>(HOST + "/order").subscribe({
+    this.http.get<Order[]>(HOST + "/order/desc").subscribe({
       next: orders => {
         this.orders = orders;
       }
@@ -82,5 +82,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+  getBgColor(order: Order) : string {
+    switch (order.status) {
+      case 'OPEN':
+        return "white";
+      case 'READY':
+        return 'lightgreen';
+      default:
+        return 'white';
+    }
   }
 }

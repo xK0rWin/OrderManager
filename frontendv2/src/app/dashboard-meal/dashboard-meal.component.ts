@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class DashboardMealComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
+  rdyOrders: Order[] = [];
   mealOverview: Map<string, number> = new Map();
 
   constructor(private http: HttpClient, private sseService: SseService, private zone: NgZone) {
@@ -20,9 +21,14 @@ export class DashboardMealComponent implements OnInit, OnDestroy {
     eventSource.onmessage = (event) => {
       console.log('Received event:', event);
       this.zone.run(() => {
-        this.http.get<Order[]>(HOST + "/order/mealonly").subscribe({
+        this.http.get<Order[]>(HOST + "/order/mealonly/open").subscribe({
           next: orders => {
             this.orders = orders;
+          }
+        });
+        this.http.get<Order[]>(HOST + "/order/mealonly/ready").subscribe({
+          next: orders => {
+            this.rdyOrders = orders;
           }
         });
         this.http.get<Map<string, number>>(HOST + "/order/meals").subscribe({
@@ -35,9 +41,14 @@ export class DashboardMealComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.http.get<Order[]>(HOST + "/order/mealonly").subscribe({
+    this.http.get<Order[]>(HOST + "/order/mealonly/open").subscribe({
       next: orders => {
         this.orders = orders;
+      }
+    });
+    this.http.get<Order[]>(HOST + "/order/mealonly/ready").subscribe({
+      next: orders => {
+        this.rdyOrders = orders;
       }
     });
     this.http.get<Map<string, number>>(HOST + "/order/meals").subscribe({
@@ -55,6 +66,17 @@ export class DashboardMealComponent implements OnInit, OnDestroy {
   setOrderStatus(order: Order, status: string) {
     order.status = status;
     this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({});
+  }
+
+  getBgColor(order: Order) : string {
+    switch (order.status) {
+      case 'OPEN':
+        return "white";
+      case 'READY':
+        return 'lightgreen';
+      default:
+        return 'white';
+    }
   }
 
 }
