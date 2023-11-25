@@ -48,5 +48,7 @@
     <button type="button" class="btn btn-success m-1" (click)="submitOrder()">Submit Order</button>
     <button type="button" class="btn btn-danger m-1" (click)="back()">Back</button>
     <strong>Order Total:</strong> {{ getTotal() | currency:'EUR':'symbol':'1.2-2' }}
+    <button type="button" class="btn btn-info m-1" (click)="clearSubTotal()">Clear Subtotal</button>
+    <strong>Order Total:</strong> {{ subtotal | currency:'EUR':'symbol':'1.2-2' }}
   </form>
 </div>

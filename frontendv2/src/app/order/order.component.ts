@@ -17,6 +17,7 @@ export class OrderComponent implements OnInit {
   order: Order = { tableNumber: '', meals: [], drinks: [] };
   availableMeals: Meal[] = [];
   availableDrinks: Drink[] = [];
+  subtotal: number = 0;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -44,21 +45,25 @@ export class OrderComponent implements OnInit {
 
   addMeal(meal: Meal): void {
     meal.amount++;
+    this.addToSubTotal(meal.price);
   }
 
   removeMeal(meal: Meal): void {
     if (meal.amount > 0) {
       meal.amount--;
+      this.removeFromSubTotal(meal.price);
     }
   }
 
   addDrink(drink: Drink): void {
     drink.amount++;
+    this.addToSubTotal(drink.price);
   }
 
   removeDrink(drink: Drink): void {
     if (drink.amount > 0) {
       drink.amount--;
+      this.removeFromSubTotal(drink.price);
     }
   }
 
@@ -81,7 +86,6 @@ export class OrderComponent implements OnInit {
     } else {
       this.showErrorMessage = true;
     }
-
   }
 
   back() : void {
@@ -102,5 +106,17 @@ export class OrderComponent implements OnInit {
     }
 
     return total;
+  }
+
+  addToSubTotal(price: number) : void {
+    this.subtotal += price;
+  }
+
+  removeFromSubTotal(price: number) : void {
+    this.subtotal -= price; //TODO check for overflow
+  }
+
+  clearSubTotal() : void {
+    this.subtotal = 0;
   }
 }
