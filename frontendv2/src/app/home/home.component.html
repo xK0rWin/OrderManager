@@ -3,7 +3,7 @@
     <!-- Create New Order Button -->
     <div class="mb-3 mx-auto text-center">
         <p class="lead">Order Management System</p>
-        <button class="btn btn-success" (click)="createNewOrder()">Create New Order</button>
+        <button class="btn btn-success" (click)="createNewOrder()">Neue Bestellung aufnehmen</button>
     </div>
     <!-- Name Input -->
     <div class="container mt-4">
@@ -11,7 +11,7 @@
           <label for="nameInput" class="col form-label flex-grow-1">Name eingeben:</label>
           <input type="text" id="nameInput" class="col form-control flex-grow-1" [(ngModel)]="waiterName">
           <div class="col mt-3 flex-grow-1">
-            <button class="btn btn-primary flex-grow-1" (click)="saveWaiterInStorage()">Save</button>
+            <button class="btn btn-primary flex-grow-1" (click)="saveWaiterInStorage()">Speichern</button>
           </div>
         </div>
     </div>

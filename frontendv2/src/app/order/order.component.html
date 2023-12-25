@@ -2,14 +2,14 @@
   <form class="flex-column justify-content-center">
     <h2 class="text-center p-3">Order Management</h2>
     <div class="mb-3 d-flex justify-content-center align-items-center">
-      <label for="tableNumber" class="form-label mx-2 p-2">Table Number:</label>
+      <label for="tableNumber" class="form-label mx-2 p-2">Tischnummer:</label>
       <input type="text" class="form-control w-50 mx-2" [(ngModel)]="order.tableNumber" name="tableNumber" required>
-      <div *ngIf="showErrorMessage" class="alert alert-danger">Required field</div>
+      <div *ngIf="showErrorMessage" class="alert alert-danger">Pflichtfeld!</div>
     </div>
 
     <div class="col">
       <div class="mb-3 d-flex flex-column justify-content-center menubox rounded">
-        <p><b>Select Meals:</b></p>
+        <p><b>Speisen auswählen:</b></p>
         <div class="btn-group d-flex flex-row flex-wrap w-100 justify-content-around" role="group" aria-label="Meal Buttons">
           <div *ngFor="let meal of availableMeals" class="d-flex flex-row align-items-center menuitem rounded w-50">
             <button type="button" class="btn btn-primary btn-sm m-1 d-flex align-items-center fs-6" (click)="addMeal(meal)">
@@ -22,7 +22,7 @@
       </div>
 
       <div class="mb-3 d-flex flex-column justify-content-center menubox rounded">
-        <p><b>Select Drinks:</b></p>
+        <p><b>Getränke auswählen:</b></p>
         <div class="btn-group d-flex flex-row flex-wrap w-100 justify-content-around" role="group" aria-label="Meal Buttons">
           <div *ngFor="let drink of availableDrinks" class="d-flex flex-row align-items-center menuitem rounded w-50">
             <button type="button" class="btn btn-primary btn-sm m-1 d-flex flex-fill align-items-center fs-6" (click)="addDrink(drink)">
@@ -35,11 +35,11 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-success m-1" (click)="submitOrder()">Submit Order</button>
-    <button type="button" class="btn btn-danger m-1" (click)="back()">Back</button>
-    <strong>Order Total:</strong> {{ getTotal() | currency:'EUR':'symbol':'1.2-2' }}
-    <div *ngIf="showErrorMessage" class="alert alert-danger">Table number required</div>
-    <button type="button" class="btn btn-info m-1" (click)="clearSubTotal()">Clear Subtotal</button>
-    <strong>Order Subtotal:</strong> {{ subtotal | currency:'EUR':'symbol':'1.2-2' }}
+    <button type="button" class="btn btn-success m-1" (click)="submitOrder()">Bestellung abschließen</button>
+    <button type="button" class="btn btn-danger m-1" (click)="back()">Zurück</button>
+    <strong>Gesamtsumme:</strong> {{ getTotal() | currency:'EUR':'symbol':'1.2-2' }}
+    <div *ngIf="showErrorMessage" class="alert alert-danger">Tischnummer benötigt!</div>
+    <button type="button" class="btn btn-info m-1" (click)="clearSubTotal()">Zwischensumme löschen</button>
+    <strong>Zwischensumme:</strong> {{ subtotal | currency:'EUR':'symbol':'1.2-2' }}
   </form>
 </div>

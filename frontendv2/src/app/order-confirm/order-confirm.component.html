@@ -1,30 +1,30 @@
 <div class="container mt-4" *ngIf="loaded">
-    <h2>Order Details</h2>
+    <h2>Bestelldetails</h2>
     
     <!-- Table Number -->
     <div class="mb-3">
-        <strong>Table Number:</strong> {{ order.tableNumber }}
+        <strong>Tischnummer:</strong> {{ order.tableNumber }}
     </div>
     
     <!-- Meals Section -->
     <div class="mb-3">
-        <h4>Meals:</h4>
+        <h4>Speisen:</h4>
         <ul class="list-group">
         <li *ngFor="let meal of order.mealOrder.meals" class="list-group-item">
-            <div>{{ meal?.identifier }} - Amount: {{ meal?.amount }} - Price: {{ meal?.price | currency:'EUR':'symbol':'1.2-2' }}
+            <div>{{ meal?.identifier }} - Menge: {{ meal?.amount }} - Preis: {{ meal?.price | currency:'EUR':'symbol':'1.2-2' }}
                 - Total: {{ (meal?.price || 0) * (meal?.amount || 0) | currency:'EUR':'symbol':'1.2-2' }}
             </div>
             <div>
                 <div><button class="btn btn-success btn-sm m-1 w-auto" (click)="subtotalAddMeal(meal)"><b>{{getMealByName(meal.identifier)}}</b></button></div>
             </div>
         </li>
-        <li *ngIf="(!order?.mealOrder?.meals || order.mealOrder.meals.length)" class="list-group-item">No meals selected</li>
+        <li *ngIf="(!order?.mealOrder?.meals || order.mealOrder.meals.length == 0)" class="list-group-item">Keine Speisen ausgewählt</li>
         </ul>
     </div>
     
     <!-- Drinks Section -->
     <div class="mb-3">
-        <h4>Drinks:</h4>
+        <h4>Getränke:</h4>
         <ul class="list-group">
         <li *ngFor="let drink of order.drinkOrder.drinks" class="list-group-item">
             <div>{{ drink?.identifier }} - Amount: {{ drink?.amount }} - Price: {{ drink?.price | currency:'EUR':'symbol':'1.2-2' }}
@@ -34,17 +34,17 @@
                 <div><button class="btn btn-success btn-sm m-1 w-auto" (click)="subtotalAddDrink(drink)"><b>{{getDrinkByName(drink.identifier)}}</b></button></div>
             </div>
         </li>
-        <li *ngIf="(!order?.drinkOrder?.drinks || order.drinkOrder.drinks.length)" class="list-group-item">No drinks selected</li>
+        <li *ngIf="(!order?.drinkOrder?.drinks || order.drinkOrder.drinks.length == 0)" class="list-group-item">Keine Getränke ausgewählt</li>
         </ul>
     </div>
 
     <!-- Back Button -->
     <div class="d-flex flex-row justify-content-between">
-        <button class="btn btn-primary" [routerLink]="['']">Back to Home</button>
-        <button class="btn btn-primary" (click)="clearSubTotal()">Clear Subtotal</button>
+        <button class="btn btn-primary" [routerLink]="['']">Zurück</button>
+        <button class="btn btn-primary" (click)="clearSubTotal()">Zwischensumme löschen</button>
     </div>
     <div class="mt-3 d-flex flex-row justify-content-between">
-        <div><strong>Order Total:</strong> {{ getTotal() | currency:'EUR':'symbol':'1.2-2' }}</div>
-        <div><strong>Subtotal:</strong> {{ subtotal.amount| currency:'EUR':'symbol':'1.2-2' }}</div>
+        <div><strong>Gesamtsumme:</strong> {{ getTotal() | currency:'EUR':'symbol':'1.2-2' }}</div>
+        <div><strong>Zwischensumme:</strong> {{ subtotal.amount| currency:'EUR':'symbol':'1.2-2' }}</div>
     </div>
 </div>    
