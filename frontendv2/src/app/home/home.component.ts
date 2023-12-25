@@ -68,9 +68,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.sseService.closeEventSource();
   }
 
-  setOrderStatus(order: Order, status: string) {
-    order.status = status;
-    this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({});
+  setOrderMealStatus(order: Order, status: string) {
+    order.mealOrder.status = status;
+    this.http.put(HOST + "/order/" + order.id + "/mealstatus/" + status, {}).subscribe({});
+  }
+
+  setOrderDrinkStatus(order: Order, status: string) {
+    order.drinkOrder.status = status;
+    this.http.put(HOST + "/order/" + order.id + "/drinkstatus/" + status, {}).subscribe({});
   }
 
   refreshPassedOrders() : void {
@@ -85,13 +90,33 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getBgColor(order: Order) : string {
-    switch (order.status) {
-      case 'OPEN':
-        return "white";
-      case 'READY':
+    switch (this.calcOrderStatus(order)) {
+      case 'Getränke abholbereit':
+        return 'lightgreen';
+      case 'Essen abholbereit':
+        return 'lightgreen';
+        case 'Essen & Getränke abholbereit':
         return 'lightgreen';
       default:
         return 'white';
     }
+  }
+
+  calcOrderStatus(order: Order) : string {
+    let status = "";
+
+    if (order.drinkOrder.status == 'DELIVERED' && order.mealOrder.status == 'DELIVERED') {
+      status = 'DELIVERED';
+    } else if (order.drinkOrder.status == 'READY' && order.mealOrder.status != 'READY') {
+      status = 'Getränke abholbereit';
+    } else if (order.drinkOrder.status != 'READY' && order.mealOrder.status == 'READY') {
+      status = 'Essen abholbereit';
+    } else if (order.drinkOrder.status == 'READY' && order.mealOrder.status == 'READY') {
+      status = 'Essen & Getränke abholbereit';
+    } else {
+      status = 'Offen';
+    }
+
+    return status;
   }
 }

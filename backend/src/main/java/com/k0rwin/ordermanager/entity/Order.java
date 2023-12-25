@@ -23,28 +23,24 @@ public class Order {
     @Column(name = "table_nr", nullable = false)
     private Integer tableNumber;
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "order_id")
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Meal> meals = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
+    private MealOrder mealOrder;
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "order_id")
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Drink> drinks = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
+    private DrinkOrder drinkOrder;
     @Column(name = "time", nullable = false)
     private LocalDateTime dateTime;
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private OrderStatusEnum status;
     @Column(name = "waiter", nullable = false)
     private String waiter;
 
     public Order() {
     }
 
-    public Order(Integer tableNumber ,LocalDateTime dateTime, OrderStatusEnum status, String waiter) {
+    public Order(Integer tableNumber , MealOrder mealOrder, DrinkOrder drinkOrder, LocalDateTime dateTime, String waiter) {
         this.tableNumber = tableNumber;
+        this.drinkOrder = drinkOrder;
+        this.mealOrder = mealOrder;
         this.dateTime = dateTime;
-        this.status = status;
         this.waiter = waiter;
     }
 }

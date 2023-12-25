@@ -8,7 +8,7 @@
                     <div><strong>Table: {{ order.tableNumber }}</strong></div>
                     <div>Order {{ order.id }}</div>
                     <div>Waiter: {{ order.waiter }}</div>
-                    <div *ngFor="let drink of order.drinks">
+                    <div *ngFor="let drink of order.drinkOrder.drinks">
                         <span>{{ drink.identifier }} (Amount: {{ drink.amount }})</span>
                     </div>
                     <div>
@@ -27,7 +27,7 @@
                     <div><strong>Table: {{ order.tableNumber }}</strong></div>
                     <div>Order {{ order.id }}</div>
                     <div>Waiter: {{ order.waiter }}</div>
-                    <div *ngFor="let drink of order.drinks">
+                    <div *ngFor="let drink of order.drinkOrder.drinks">
                         <span>{{ drink.identifier }} (Amount: {{ drink.amount }})</span>
                     </div>
                     <div>

@@ -1,8 +1,8 @@
 package com.k0rwin.ordermanager.control;
 
-import com.k0rwin.ordermanager.entity.Drink;
-import com.k0rwin.ordermanager.entity.Meal;
-import com.k0rwin.ordermanager.entity.Order;
+import com.k0rwin.ordermanager.entity.*;
+import com.k0rwin.ordermanager.repository.DrinkOrderRepository;
+import com.k0rwin.ordermanager.repository.MealOrderRepository;
 import com.k0rwin.ordermanager.repository.OrderRepository;
 import com.k0rwin.ordermanager.util.ClassScanner;
 import com.k0rwin.ordermanager.util.OrderStatusEnum;
@@ -32,6 +32,10 @@ public class OrderApi {
     private final List<SseEmitter> emitters = new ArrayList<>();
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    MealOrderRepository mealOrderRepository;
+    @Autowired
+    DrinkOrderRepository drinkOrderRepository;
 
     @EventListener(ApplicationReadyEvent.class)
     protected void init() throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
@@ -85,62 +89,105 @@ public class OrderApi {
     @GetMapping(value = "", produces = "application/json")
     public ResponseEntity<List<Order>> getOrders() {
         List<Order> openOrders = orderRepository.findAllByOrderById().stream()
-                .filter(order -> order.getStatus() != OrderStatusEnum.DELIVERED).collect(Collectors.toList());
+                .filter(order ->
+                        (order.getMealOrder().getStatus() != OrderStatusEnum.DELIVERED && order.getDrinkOrder().getStatus() != OrderStatusEnum.DELIVERED)
+                ).collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
     @GetMapping(value = "/desc", produces = "application/json")
     public ResponseEntity<List<Order>> getOrdersSortedByStatusDesc() {
-        List<Order> openOrders = orderRepository.findAllByOrderByStatusDescIdAsc().stream()
-                .filter(order -> order.getStatus() != OrderStatusEnum.DELIVERED).collect(Collectors.toList());
-        return new ResponseEntity<>(openOrders, HttpStatus.OK);
+        List<MealOrder> openMealOrders = mealOrderRepository.findAllByOrderByStatusDescIdAsc().stream()
+                .filter(order ->
+                        (order.getStatus() != OrderStatusEnum.DELIVERED)
+                ).toList();
+        List<DrinkOrder> openDrinkOrders = drinkOrderRepository.findAllByOrderByStatusDescIdAsc().stream()
+                .filter(order ->
+                        (order.getStatus() != OrderStatusEnum.DELIVERED)
+                ).toList();
+        Set<Order> openOrders = new HashSet<>();
+        openOrders.addAll(openMealOrders.stream().map(mealOrder -> orderRepository.findByMealOrderById(mealOrder.getId()).orElseThrow()).toList());
+        openOrders.addAll(openDrinkOrders.stream().map(drinkOrder -> orderRepository.findByDrinkOrderById(drinkOrder.getId()).orElseThrow()).toList());
+
+        return new ResponseEntity<>(List.copyOf(openOrders), HttpStatus.OK);
     }
 
     @GetMapping(value = "/asc", produces = "application/json")
     public ResponseEntity<List<Order>> getOrdersSortedByStatusAsc() {
-        List<Order> openOrders = orderRepository.findAllByOrderByStatusAscIdAsc().stream()
-                .filter(order -> order.getStatus() != OrderStatusEnum.DELIVERED).collect(Collectors.toList());
-        return new ResponseEntity<>(openOrders, HttpStatus.OK);
+        List<MealOrder> openMealOrders = mealOrderRepository.findAllByOrderByStatusAscIdAsc().stream()
+                .filter(order ->
+                        (order.getStatus() != OrderStatusEnum.DELIVERED)
+                ).toList();
+        List<DrinkOrder> openDrinkOrders = drinkOrderRepository.findAllByOrderByStatusAscIdAsc().stream()
+                .filter(order ->
+                        (order.getStatus() != OrderStatusEnum.DELIVERED)
+                ).toList();
+        Set<Order> openOrders = new HashSet<>();
+        openOrders.addAll(openMealOrders.stream().map(mealOrder -> orderRepository.findByMealOrderById(mealOrder.getId()).orElseThrow()).toList());
+        openOrders.addAll(openDrinkOrders.stream().map(drinkOrder -> orderRepository.findByDrinkOrderById(drinkOrder.getId()).orElseThrow()).toList());
+
+        return new ResponseEntity<>(List.copyOf(openOrders), HttpStatus.OK);
     }
 
     @GetMapping(value = "/delivered", produces = "application/json")
     public ResponseEntity<List<Order>> getDeliveredOrders() {
         List<Order> openOrders = orderRepository.findAllByOrderById().stream()
-                .filter(order -> order.getStatus() == OrderStatusEnum.DELIVERED).collect(Collectors.toList());
+                .filter(order ->
+                        (order.getMealOrder().getStatus() == OrderStatusEnum.DELIVERED && order.getDrinkOrder().getStatus() == OrderStatusEnum.DELIVERED)
+                ).collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
     @GetMapping(value = "/ready", produces = "application/json")
     public ResponseEntity<List<Order>> getReadyOrders() {
         List<Order> openOrders = orderRepository.findAllByOrderById().stream()
-                .filter(order -> order.getStatus() == OrderStatusEnum.READY).collect(Collectors.toList());
+                .filter(order ->
+                        (order.getMealOrder().getStatus() == OrderStatusEnum.READY || order.getDrinkOrder().getStatus() == OrderStatusEnum.READY)
+                ).collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
     @GetMapping(value = "/open", produces = "application/json")
     public ResponseEntity<List<Order>> getOpenOrders() {
         List<Order> openOrders = orderRepository.findAllByOrderById().stream()
-                .filter(order -> order.getStatus() == OrderStatusEnum.OPEN).collect(Collectors.toList());
+                .filter(order ->
+                        (order.getMealOrder().getStatus() == OrderStatusEnum.OPEN || order.getDrinkOrder().getStatus() == OrderStatusEnum.OPEN)
+                ).collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
     @PostMapping(value = "", produces = "application/json")
     public ResponseEntity<Long> postOrder(@RequestBody Order order) {
-        order.setStatus(OrderStatusEnum.OPEN);
+        order.getMealOrder().setStatus(OrderStatusEnum.OPEN);
+        order.getDrinkOrder().setStatus(OrderStatusEnum.OPEN);
         order.setDateTime(LocalDateTime.now());
         Order entity = orderRepository.save(order);
         sendSseEvent("new order created");
         return new ResponseEntity<>(entity.getId(), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{id}/{status}", produces = "application/json")
-    public ResponseEntity<Void> updateStatus(@PathVariable Long id, @PathVariable OrderStatusEnum status) {
+    @PutMapping(value = "/{id}/mealstatus/{status}", produces = "application/json")
+    public ResponseEntity<Void> updateMealStatus(@PathVariable Long id, @PathVariable OrderStatusEnum status) {
         Optional<Order> order = orderRepository.findById(id);
 
         if (order.isPresent()) {
-            order.get().setStatus(status);
+            order.get().getMealOrder().setStatus(status);
             orderRepository.save(order.get());
-            sendSseEvent("order status updated");
+            sendSseEvent("order meal status updated");
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping(value = "/{id}/drinkstatus/{status}", produces = "application/json")
+    public ResponseEntity<Void> updateDrinkStatus(@PathVariable Long id, @PathVariable OrderStatusEnum status) {
+        Optional<Order> order = orderRepository.findById(id);
+
+        if (order.isPresent()) {
+            order.get().getDrinkOrder().setStatus(status);
+            orderRepository.save(order.get());
+            sendSseEvent("order drink status updated");
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -160,10 +207,10 @@ public class OrderApi {
     @GetMapping("/meals")
     public ResponseEntity<HashMap<String, Integer>> getMealSummary() {
         HashMap<String, Integer> summary = new HashMap<>();
-        List<Order> openOrders = orderRepository.findAll().stream().filter(order -> order.getStatus() != OrderStatusEnum.DELIVERED).toList();
+        List<Order> openOrders = orderRepository.findAll().stream().filter(order -> order.getMealOrder().getStatus() != OrderStatusEnum.DELIVERED).toList();
 
         for (Order order : openOrders) {
-            for (Meal meal : order.getMeals()) {
+            for (Meal meal : order.getMealOrder().getMeals()) {
                 //put the new Meal if not exists else add value + 1
                 summary.compute(meal.getIdentifier(), (k, v) -> (v == null) ? meal.getAmount() : v + meal.getAmount());
             }
@@ -175,10 +222,10 @@ public class OrderApi {
     @GetMapping("/drinks")
     public ResponseEntity<HashMap<String, Integer>> getDrinkSummary() {
         HashMap<String, Integer> summary = new HashMap<>();
-        List<Order> openOrders = orderRepository.findAll().stream().filter(order -> order.getStatus() != OrderStatusEnum.DELIVERED).toList();
+        List<Order> openOrders = orderRepository.findAll().stream().filter(order -> order.getDrinkOrder().getStatus() != OrderStatusEnum.DELIVERED).toList();
 
         for (Order order : openOrders) {
-            for (Drink drink : order.getDrinks()) {
+            for (Drink drink : order.getDrinkOrder().getDrinks()) {
                 //put the new Drink if not exists else add value + 1
                 summary.compute(drink.getIdentifier(), (k, v) -> (v == null) ? drink.getAmount() : v + drink.getAmount());
             }
@@ -189,40 +236,44 @@ public class OrderApi {
 
     @GetMapping("/mealonly/open")
     public ResponseEntity<List<Order>> getOrdersMealOnlyOpen() {
-        List<Order> openOrders = orderRepository.findAllByOrderByStatusAscIdAsc().stream()
+        List<Order> openOrders = mealOrderRepository.findAllByOrderByStatusAscIdAsc().stream()
                 .filter(order -> order.getStatus() == OrderStatusEnum.OPEN)
                 .filter(order -> !order.getMeals().isEmpty())
-                .peek(order -> order.getDrinks().clear())
+                .map(mealOrder -> orderRepository.findByMealOrderById(mealOrder.getId()).orElseThrow())
+                .peek((order -> order.getDrinkOrder().getDrinks().clear()))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
     @GetMapping("/drinkonly/open")
     public ResponseEntity<List<Order>> getOrdersDrinkOnlyOpen() {
-        List<Order> openOrders = orderRepository.findAllByOrderByStatusAscIdAsc().stream()
+        List<Order> openOrders = drinkOrderRepository.findAllByOrderByStatusAscIdAsc().stream()
                 .filter(order -> order.getStatus() == OrderStatusEnum.OPEN)
                 .filter(order -> !order.getDrinks().isEmpty())
-                .peek(order -> order.getMeals().clear())
+                .map(drinkOrder -> orderRepository.findByDrinkOrderById(drinkOrder.getId()).orElseThrow())
+                .peek((order -> order.getMealOrder().getMeals().clear()))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
     @GetMapping("/mealonly/ready")
     public ResponseEntity<List<Order>> getOrdersMealOnlyReady() {
-        List<Order> openOrders = orderRepository.findAllByOrderByStatusAscIdAsc().stream()
+        List<Order> openOrders = mealOrderRepository.findAllByOrderByStatusAscIdAsc().stream()
                 .filter(order -> order.getStatus() == OrderStatusEnum.READY)
                 .filter(order -> !order.getMeals().isEmpty())
-                .peek(order -> order.getDrinks().clear())
+                .map(mealOrder -> orderRepository.findByMealOrderById(mealOrder.getId()).orElseThrow())
+                .peek((order -> order.getDrinkOrder().getDrinks().clear()))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
     @GetMapping("/drinkonly/ready")
     public ResponseEntity<List<Order>> getOrdersDrinkOnlyReady() {
-        List<Order> openOrders = orderRepository.findAllByOrderByStatusAscIdAsc().stream()
+        List<Order> openOrders = drinkOrderRepository.findAllByOrderByStatusAscIdAsc().stream()
                 .filter(order -> order.getStatus() == OrderStatusEnum.READY)
                 .filter(order -> !order.getDrinks().isEmpty())
-                .peek(order -> order.getMeals().clear())
+                .map(drinkOrder -> orderRepository.findByDrinkOrderById(drinkOrder.getId()).orElseThrow())
+                .peek((order -> order.getMealOrder().getMeals().clear()))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
@@ -241,7 +292,9 @@ public class OrderApi {
     public ResponseEntity<List<Order>> getOrdersByWaiter(@PathVariable String name) {
 
         List<Order> openOrders = orderRepository.findAll().stream()
-                .filter(order -> order.getStatus() != OrderStatusEnum.DELIVERED)
+                .filter(order ->
+                        (order.getMealOrder().getStatus() != OrderStatusEnum.DELIVERED && order.getDrinkOrder().getStatus() != OrderStatusEnum.DELIVERED)
+                )
                 .filter(order -> order.getWaiter().equals(name))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(openOrders, HttpStatus.OK);

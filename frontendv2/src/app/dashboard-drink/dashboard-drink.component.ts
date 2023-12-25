@@ -52,12 +52,12 @@ export class DashboardDrinkComponent implements OnInit, OnDestroy {
   }
 
   setOrderStatus(order: Order, status: string) {
-    order.status = status;
-    this.http.put(HOST + "/order/" + order.id + "/" + order.status, {}).subscribe({});
+    order.drinkOrder.status = status;
+    this.http.put(HOST + "/order/" + order.id + "/drinkstatus/" + status, {}).subscribe({});
   }
 
   getBgColor(order: Order) : string {
-    switch (order.status) {
+    switch (order.drinkOrder.status) {
       case 'OPEN':
         return "white";
       case 'READY':

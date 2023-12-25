@@ -23,7 +23,7 @@
       <div class="card-body mb-2 row">
         <div class="col-8">
           <h5 class="card-title">Order: {{ order.id }} - {{ order.dateTime | date: 'short' }}</h5>
-          <h5 class="col-4 mb-1 mt-4">Status: {{ order.status }}</h5>
+          <h5 class="col-4 mb-1 mt-4">Status: {{ calcOrderStatus(order) }}</h5>
   
           <div class="col-4 mb-1 mt-4">
             <h5>Table: {{ order.tableNumber }}</h5>
@@ -31,7 +31,8 @@
         </div>
         <div class="col-4 mb-1 d-flex align-items-center justify-content-center flex-column">
             <button class="btn btn-primary mt-2" (click)="navigateToDetails(order)">View Details</button>
-            <button class="btn btn-success mt-2" (click)="setOrderStatus(order, 'DELIVERED')">Set Delivered</button>
+            <button class="btn btn-success mt-2" (click)="setOrderMealStatus(order, 'DELIVERED')">Set Meals Delivered</button>
+            <button class="btn btn-success mt-2" (click)="setOrderDrinkStatus(order, 'DELIVERED')">Set Drinks Delivered</button>
           </div>
       </div>
     </div>
@@ -42,7 +43,7 @@
           <div class="card-body mb-2 row">
             <div class="col-8">
               <h5 class="card-title">Order: {{ order.id }} - {{ order.dateTime | date: 'short' }}</h5>
-              <h5 class="col-4 mb-1 mt-4">Status: {{ order.status }}</h5>
+              <h5 class="col-4 mb-1 mt-4">Status: {{ calcOrderStatus(order) }}</h5>
       
               <div class="col-4 mb-1 mt-4">
                 <h5>Table: {{ order.tableNumber }}</h5>
@@ -50,8 +51,10 @@
             </div>
             <div class="col-4 mb-1 d-flex align-items-center justify-content-center flex-column">
               <button class="btn btn-primary mt-2" (click)="navigateToDetails(order)">View Details</button>
-              <button class="btn btn-danger mt-2" (click)="setOrderStatus(order, 'OPEN')">Set Open</button>
-              <button class="btn btn-success mt-2" (click)="setOrderStatus(order, 'READY')">Set Ready</button>
+              <button class="btn btn-danger mt-2" (click)="setOrderMealStatus(order, 'OPEN')">Set Meals Open</button>
+              <button class="btn btn-danger mt-2" (click)="setOrderDrinkStatus(order, 'OPEN')">Set Drinks Open</button>
+              <button class="btn btn-success mt-2" (click)="setOrderMealStatus(order, 'READY')">Set Meals Ready</button>
+              <button class="btn btn-success mt-2" (click)="setOrderDrinkStatus(order, 'READY')">Set Drinks Ready</button>
             </div>
           </div>
         </div>

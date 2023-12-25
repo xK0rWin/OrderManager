@@ -10,7 +10,7 @@
     <div class="mb-3">
         <h4>Meals:</h4>
         <ul class="list-group">
-        <li *ngFor="let meal of order.meals" class="list-group-item">
+        <li *ngFor="let meal of order.mealOrder.meals" class="list-group-item">
             <div>{{ meal?.identifier }} - Amount: {{ meal?.amount }} - Price: {{ meal?.price | currency:'EUR':'symbol':'1.2-2' }}
                 - Total: {{ (meal?.price || 0) * (meal?.amount || 0) | currency:'EUR':'symbol':'1.2-2' }}
             </div>
@@ -18,7 +18,7 @@
                 <div><button class="btn btn-success btn-sm m-1 w-auto" (click)="subtotalAddMeal(meal)"><b>{{getMealByName(meal.identifier)}}</b></button></div>
             </div>
         </li>
-        <li *ngIf="(!order?.meals || order.meals.length === 0)" class="list-group-item">No meals selected</li>
+        <li *ngIf="(!order?.mealOrder?.meals || order.mealOrder.meals.length)" class="list-group-item">No meals selected</li>
         </ul>
     </div>
     
@@ -26,7 +26,7 @@
     <div class="mb-3">
         <h4>Drinks:</h4>
         <ul class="list-group">
-        <li *ngFor="let drink of order.drinks" class="list-group-item">
+        <li *ngFor="let drink of order.drinkOrder.drinks" class="list-group-item">
             <div>{{ drink?.identifier }} - Amount: {{ drink?.amount }} - Price: {{ drink?.price | currency:'EUR':'symbol':'1.2-2' }}
                 - Total: {{ (drink?.price || 0) * (drink?.amount || 0) | currency:'EUR':'symbol':'1.2-2' }}
             </div>
@@ -34,7 +34,7 @@
                 <div><button class="btn btn-success btn-sm m-1 w-auto" (click)="subtotalAddDrink(drink)"><b>{{getDrinkByName(drink.identifier)}}</b></button></div>
             </div>
         </li>
-        <li *ngIf="(!order?.drinks || order.drinks.length === 0)" class="list-group-item">No drinks selected</li>
+        <li *ngIf="(!order?.drinkOrder?.drinks || order.drinkOrder.drinks.length)" class="list-group-item">No drinks selected</li>
         </ul>
     </div>
 

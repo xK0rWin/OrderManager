@@ -14,7 +14,11 @@ import { HOST } from '../config';
 })
 export class OrderComponent implements OnInit {
   showErrorMessage: boolean = false;
-  order: Order = { tableNumber: '', meals: [], drinks: [] };
+  order: Order = {
+    tableNumber: '',
+    mealOrder: {meals: []},
+    drinkOrder: {drinks: []}
+  };
   availableMeals: Meal[] = [];
   availableDrinks: Drink[] = [];
   subtotal: number = 0;
@@ -28,6 +32,15 @@ export class OrderComponent implements OnInit {
         for (let [meal, price] of mealEntries) {
           this.availableMeals.push({ identifier: meal, amount: 0, price: Number(price) });
         }
+        this.availableMeals.sort((a, b) => {
+          if (a.identifier < b.identifier) {
+            return -1;
+          } else if (a.identifier > b.identifier) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
       }
     });
   
@@ -37,7 +50,15 @@ export class OrderComponent implements OnInit {
         for (let [drink, price] of drinkEntries) {
           this.availableDrinks.push({ identifier: drink, amount: 0, price: Number(price) });
         }
-        console.log(this.availableDrinks);
+        this.availableDrinks.sort((a, b) => {
+          if (a.identifier < b.identifier) {
+            return -1;
+          } else if (a.identifier > b.identifier) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
       }
     });
   }
@@ -70,8 +91,8 @@ export class OrderComponent implements OnInit {
   submitOrder(): void {
 
     if (this.order.tableNumber !== '') {
-      this.order.meals = this.availableMeals.filter(meal => meal.amount !== 0);
-      this.order.drinks = this.availableDrinks.filter(meal => meal.amount !== 0);
+      this.order.mealOrder.meals = this.availableMeals.filter(meal => meal.amount !== 0);
+      this.order.drinkOrder.drinks = this.availableDrinks.filter(meal => meal.amount !== 0);
       this.order.waiter = localStorage.getItem("waiter_name")!;
       console.log('Submitted Order:', this.order);
 

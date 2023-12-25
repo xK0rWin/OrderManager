@@ -23,8 +23,8 @@ export class OrderConfirmComponent {
   loaded: boolean = false;
   order: Order = {
     tableNumber: '',
-    meals: [],
-    drinks: []
+    mealOrder: {meals: []},
+    drinkOrder: {drinks: []}
   };
   subtotal: Subtotal = {
     amount: 0,
@@ -45,10 +45,10 @@ export class OrderConfirmComponent {
           },
           complete: () => {
             this.loaded = true;
-            this.order.meals.forEach(meal => {
+            this.order.mealOrder.meals.forEach(meal => {
               this.subtotal.meals.set(meal.identifier, 0);
             });
-            this.order.drinks.forEach(drink => {
+            this.order.drinkOrder.drinks.forEach(drink => {
               this.subtotal.drinks.set(drink.identifier, 0);
             });
           }
@@ -61,12 +61,12 @@ export class OrderConfirmComponent {
     let total = 0;
 
     // Calculate total for meals
-    for (const meal of this.order.meals) {
+    for (const meal of this.order.mealOrder.meals) {
       total += meal.amount * meal.price;
     }
 
     // Calculate total for drinks
-    for (const drink of this.order.drinks) {
+    for (const drink of this.order.drinkOrder.drinks) {
       total += drink.amount * drink.price;
     }
 
