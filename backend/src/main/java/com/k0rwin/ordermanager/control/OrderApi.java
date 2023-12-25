@@ -158,8 +158,16 @@ public class OrderApi {
 
     @PostMapping(value = "", produces = "application/json")
     public ResponseEntity<Long> postOrder(@RequestBody Order order) {
-        order.getMealOrder().setStatus(OrderStatusEnum.OPEN);
-        order.getDrinkOrder().setStatus(OrderStatusEnum.OPEN);
+        if (order.getMealOrder().getMeals().isEmpty()) {
+            order.getMealOrder().setStatus(OrderStatusEnum.DELIVERED);
+        } else {
+            order.getMealOrder().setStatus(OrderStatusEnum.OPEN);
+        }
+        if (order.getDrinkOrder().getDrinks().isEmpty()) {
+            order.getDrinkOrder().setStatus(OrderStatusEnum.DELIVERED);
+        } else {
+            order.getDrinkOrder().setStatus(OrderStatusEnum.OPEN);
+        }
         order.setDateTime(LocalDateTime.now());
         Order entity = orderRepository.save(order);
         sendSseEvent("new order created");
@@ -170,7 +178,7 @@ public class OrderApi {
     public ResponseEntity<Void> updateMealStatus(@PathVariable Long id, @PathVariable OrderStatusEnum status) {
         Optional<Order> order = orderRepository.findById(id);
 
-        if (order.isPresent()) {
+        if (order.isPresent() && !order.get().getMealOrder().getMeals().isEmpty()) {
             order.get().getMealOrder().setStatus(status);
             orderRepository.save(order.get());
             sendSseEvent("order meal status updated");
@@ -184,7 +192,7 @@ public class OrderApi {
     public ResponseEntity<Void> updateDrinkStatus(@PathVariable Long id, @PathVariable OrderStatusEnum status) {
         Optional<Order> order = orderRepository.findById(id);
 
-        if (order.isPresent()) {
+        if (order.isPresent() && !order.get().getDrinkOrder().getDrinks().isEmpty()) {
             order.get().getDrinkOrder().setStatus(status);
             orderRepository.save(order.get());
             sendSseEvent("order drink status updated");

@@ -69,13 +69,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   setOrderMealStatus(order: Order, status: string) {
-    order.mealOrder.status = status;
+    if (order.mealOrder.meals.length > 0) {
+      order.mealOrder.status = status;
     this.http.put(HOST + "/order/" + order.id + "/mealstatus/" + status, {}).subscribe({});
+    }
   }
 
   setOrderDrinkStatus(order: Order, status: string) {
-    order.drinkOrder.status = status;
+    if (order.drinkOrder.drinks.length > 0) {
+      order.drinkOrder.status = status;
     this.http.put(HOST + "/order/" + order.id + "/drinkstatus/" + status, {}).subscribe({});
+    }
   }
 
   refreshPassedOrders() : void {
@@ -106,7 +110,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     let status = "";
 
     if (order.drinkOrder.status == 'DELIVERED' && order.mealOrder.status == 'DELIVERED') {
-      status = 'DELIVERED';
+      status = 'abgeschlossen';
     } else if (order.drinkOrder.status == 'READY' && order.mealOrder.status != 'READY') {
       status = 'Getränke abholbereit';
     } else if (order.drinkOrder.status != 'READY' && order.mealOrder.status == 'READY') {
