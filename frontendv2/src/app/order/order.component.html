@@ -13,7 +13,7 @@
     <div class="col">
       <div class="mb-3 d-flex flex-column justify-content-center menubox rounded">
         <p><b>Speisen auswählen:</b></p>
-        <div class="btn-group d-flex flex-row flex-wrap w-100 justify-content-around" role="group"
+        <div class="btn-group d-flex flex-row flex-wrap w-100 justify-content-around order-item" role="group"
           aria-label="Meal Buttons">
           <div *ngFor="let meal of availableMeals" class="d-flex flex-row align-items-center menuitem rounded w-50">
             <button type="button" class="btn btn-primary btn-sm m-1 d-flex flex-fill align-items-center fs-6"
@@ -45,20 +45,20 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-6">
-          <button type="button" class="btn btn-success m-1 btn-block" (click)="submitOrder()">Bestellung
+          <button type="button" class="btn btn-success" (click)="submitOrder()">Bestellung
             abschließen</button>
         </div>
         <div class="col-6">
-          <button type="button" class="btn btn-info m-1 btn-block" (click)="clearSubTotal()">Zwischensumme
+          <button type="button" class="btn btn-info" (click)="clearSubTotal()">Zwischensumme
             löschen</button>
         </div>
         <div *ngIf="showErrorMessage" class="alert alert-danger">Tischnummer benötigt!</div>
       </div>
-      <div>
-        <strong>Gesamtsumme:</strong> {{ getTotal() | currency:'EUR':'symbol':'1.2-2' }}
+      <div class="row mt-3">
+        <p><strong>Gesamtsumme:</strong> {{ getTotal() | currency:'EUR':'symbol':'1.2-2' }}</p>
       </div>
-      <div>
-        <strong>Zwischensumme:</strong> {{ subtotal | currency:'EUR':'symbol':'1.2-2' }}
+      <div class="row">
+        <p><strong>Zwischensumme:</strong> {{ subtotal | currency:'EUR':'symbol':'1.2-2' }}</p>
       </div>
     </div>
   </form>
