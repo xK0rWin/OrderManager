@@ -23,8 +23,8 @@ export class OrderConfirmComponent {
   loaded: boolean = false;
   order: Order = {
     tableNumber: '',
-    mealOrder: {meals: []},
-    drinkOrder: {drinks: []}
+    mealOrder: { meals: [] },
+    drinkOrder: { drinks: [] }
   };
   subtotal: Subtotal = {
     amount: 0,
@@ -38,7 +38,7 @@ export class OrderConfirmComponent {
     this.route.paramMap.subscribe({
       next: params => {
         this.id = params.get('id')!;
-  
+
         this.http.get<Order>(HOST + "/order/" + this.id).subscribe({
           next: order => {
             this.order = order;
@@ -57,7 +57,7 @@ export class OrderConfirmComponent {
     });
   }
 
-  getTotal() : number {
+  getTotal(): number {
     let total = 0;
 
     // Calculate total for meals
@@ -73,7 +73,7 @@ export class OrderConfirmComponent {
     return total;
   }
 
-  clearSubTotal() : void {
+  clearSubTotal(): void {
     this.subtotal.amount = 0;
     for (let [key, value] of this.subtotal.meals.entries()) {
       this.subtotal.meals.set(key, 0);
@@ -83,25 +83,29 @@ export class OrderConfirmComponent {
     }
   }
 
-  subtotalAddDrink(drink: Drink) : void {
-    this.subtotal.amount += drink.price;
-    if (this.subtotal.drinks.has(drink.identifier)) {
-      this.subtotal.drinks.set(drink.identifier, this.subtotal.drinks.get(drink.identifier)! + 1);
+  subtotalAddDrink(drink: Drink): void {
+    if (this.subtotal.drinks.get(drink.identifier)! < drink.amount) {
+      this.subtotal.amount += drink.price;
+      if (this.subtotal.drinks.has(drink.identifier)) {
+        this.subtotal.drinks.set(drink.identifier, this.subtotal.drinks.get(drink.identifier)! + 1);
+      }
     }
   }
 
-  subtotalAddMeal(meal: Meal) : void {
-    this.subtotal.amount += meal.price;
-    if (this.subtotal.meals.has(meal.identifier)) {
-      this.subtotal.meals.set(meal.identifier, this.subtotal.meals.get(meal.identifier)! + 1);
+  subtotalAddMeal(meal: Meal): void {
+    if (this.subtotal.meals.get(meal.identifier)! < meal.amount) {
+      this.subtotal.amount += meal.price;
+      if (this.subtotal.meals.has(meal.identifier)) {
+        this.subtotal.meals.set(meal.identifier, this.subtotal.meals.get(meal.identifier)! + 1);
+      }
     }
   }
 
-  getDrinkByName(name: string) : number {
+  getDrinkByName(name: string): number {
     return this.subtotal.drinks.get(name)!;
   }
 
-  getMealByName(name : string) : number {
+  getMealByName(name: string): number {
     return this.subtotal.meals.get(name)!;
   }
 }
