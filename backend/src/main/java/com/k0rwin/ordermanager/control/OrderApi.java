@@ -44,10 +44,10 @@ public class OrderApi {
         for (Class<?> clazz : entityClasses) {
             if (clazz.getSuperclass().equals(Meal.class)) {
                 Meal meal = (Meal) clazz.getDeclaredConstructor().newInstance();
-                meals.put(clazz.getSimpleName(), meal.getPrice());
+                meals.put(meal.getIdentifier(), meal.getPrice());
             } else if (clazz.getSuperclass().equals(Drink.class)) {
                 Drink drink = (Drink) clazz.getDeclaredConstructor().newInstance();
-                drinks.put(clazz.getSimpleName(), drink.getPrice());
+                drinks.put(drink.getIdentifier(), drink.getPrice());
             }
         }
     }

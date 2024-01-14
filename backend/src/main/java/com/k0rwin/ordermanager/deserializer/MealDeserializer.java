@@ -26,7 +26,7 @@ public class MealDeserializer extends StdDeserializer<Meal> {
         Integer amount = node.get("amount").asInt();
 
         try {
-            Class<?> concreteClass = Class.forName("com.k0rwin.ordermanager.entity." + identifier);
+            Class<?> concreteClass = Class.forName("com.k0rwin.ordermanager.entity." + identifier.replaceAll("\\s+(?=[A-Z])", ""));
             return (Meal) concreteClass.getDeclaredConstructor(Integer.class)
                     .newInstance(amount);
         }catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
