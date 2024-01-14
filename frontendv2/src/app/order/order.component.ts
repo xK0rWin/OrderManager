@@ -98,7 +98,7 @@ export class OrderComponent implements OnInit {
 
   submitOrder(): void {
 
-    if (this.order.tableNumber !== '') {
+    if (this.order.tableNumber !== '' && !Number.isNaN(Number(this.order.tableNumber))) {
       this.order.mealOrder.meals = this.availableMeals.filter(meal => meal.amount !== 0);
       this.order.drinkOrder.drinks = this.availableDrinks.filter(meal => meal.amount !== 0);
       this.order.waiter = localStorage.getItem("waiter_name")!;
