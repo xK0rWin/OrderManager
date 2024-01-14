@@ -1,5 +1,6 @@
 package com.k0rwin.ordermanager.entity;
 
+import com.k0rwin.ordermanager.bundle.Category;
 import com.k0rwin.ordermanager.bundle.Identifier;
 import com.k0rwin.ordermanager.bundle.Price;
 import lombok.Getter;
@@ -25,6 +26,10 @@ public class Radler extends Drink {
     @Override
     public String getIdentifier() {
         return Identifier.RADLER;
+    }
+    @Override
+    public String getCategory() {
+        return Category.BEER;
     }
 }
 

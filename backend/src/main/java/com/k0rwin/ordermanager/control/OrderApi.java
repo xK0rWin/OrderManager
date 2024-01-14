@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/order")
 public class OrderApi {
 
-    private HashMap<String, Double> meals = new HashMap<String, Double>();
-    private HashMap<String, Double> drinks = new HashMap<String, Double>();
+    private List<Meal> meals = new ArrayList<>();
+    private List<Drink> drinks = new ArrayList<>();
     private final List<SseEmitter> emitters = new ArrayList<>();
     @Autowired
     OrderRepository orderRepository;
@@ -44,10 +44,10 @@ public class OrderApi {
         for (Class<?> clazz : entityClasses) {
             if (clazz.getSuperclass().equals(Meal.class)) {
                 Meal meal = (Meal) clazz.getDeclaredConstructor().newInstance();
-                meals.put(meal.getIdentifier(), meal.getPrice());
+                meals.add(meal);
             } else if (clazz.getSuperclass().equals(Drink.class)) {
                 Drink drink = (Drink) clazz.getDeclaredConstructor().newInstance();
-                drinks.put(drink.getIdentifier(), drink.getPrice());
+                drinks.add(drink);
             }
         }
     }
@@ -287,12 +287,12 @@ public class OrderApi {
     }
 
     @GetMapping("/list/meals")
-    public ResponseEntity<HashMap<String, Double>> getAllMealNames() {
+    public ResponseEntity<List<Meal>> getAllMealNames() {
         return new ResponseEntity<>(this.meals, HttpStatus.OK);
     }
 
     @GetMapping("/list/drinks")
-    public ResponseEntity<HashMap<String, Double>> getAllDrinkNames() {
+    public ResponseEntity<List<Drink>> getAllDrinkNames() {
         return new ResponseEntity<>(this.drinks, HttpStatus.OK);
     }
 

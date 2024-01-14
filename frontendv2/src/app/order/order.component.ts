@@ -26,12 +26,10 @@ export class OrderComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.http.get<any>(HOST + "/order/list/meals").subscribe({
+    this.http.get<Meal[]>(HOST + "/order/list/meals").subscribe({
       next: meals => {
-        const mealEntries = Object.entries(meals);
-        for (let [meal, price] of mealEntries) {
-          this.availableMeals.push({ identifier: meal, amount: 0, price: Number(price) });
-        }
+        this.availableMeals = meals;
+        console.log(this.availableMeals)
         this.availableMeals.sort((a, b) => {
           if (a.identifier < b.identifier) {
             return -1;
@@ -44,12 +42,9 @@ export class OrderComponent implements OnInit {
       }
     });
   
-    this.http.get<any>(HOST + "/order/list/drinks").subscribe({
+    this.http.get<Drink[]>(HOST + "/order/list/drinks").subscribe({
       next: drinks => {
-        const drinkEntries = Object.entries(drinks);
-        for (let [drink, price] of drinkEntries) {
-          this.availableDrinks.push({ identifier: drink, amount: 0, price: Number(price) });
-        }
+        this.availableDrinks = drinks;
         this.availableDrinks.sort((a, b) => {
           if (a.identifier < b.identifier) {
             return -1;

@@ -5,13 +5,16 @@ import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardMealComponent } from './dashboard-meal/dashboard-meal.component';
 import { DashboardDrinkComponent } from './dashboard-drink/dashboard-drink.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from '../authguard';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'order', component: OrderComponent},
-  {path: 'order-confirm/:id', component: OrderConfirmComponent},
-  {path: 'dashboard-meal', component: DashboardMealComponent},
-  {path: 'dashboard-drink', component: DashboardDrinkComponent},
+  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'order', component: OrderComponent, canActivate: [AuthGuard]},
+  {path: 'order-confirm/:id', component: OrderConfirmComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard-meal', component: DashboardMealComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard-drink', component: DashboardDrinkComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

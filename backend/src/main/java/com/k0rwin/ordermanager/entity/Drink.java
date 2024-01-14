@@ -37,4 +37,5 @@ public abstract class Drink {
     }
 
     public abstract String getIdentifier();
+    public abstract String getCategory();
 }

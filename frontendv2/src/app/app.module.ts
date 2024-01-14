@@ -12,6 +12,7 @@ import { DashboardMealComponent } from './dashboard-meal/dashboard-meal.componen
 import { DashboardDrinkComponent } from './dashboard-drink/dashboard-drink.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../authInterceptor';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { AuthInterceptor } from '../authInterceptor';
     HomeComponent,
     DashboardMealComponent,
     DashboardDrinkComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
