@@ -1,0 +1,16 @@
+<!-- login.component.html -->
+
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Login</h2>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="password" />
+        </div>
+        <button class="btn btn-primary" (click)="login()">Login</button>
+        <p>{{error}}</p>
+      </div>
+    </div>
+  </div>
+  
