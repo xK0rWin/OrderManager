@@ -22,6 +22,9 @@ export class OrderComponent implements OnInit {
   availableMeals: Meal[] = [];
   availableDrinks: Drink[] = [];
   subtotal: number = 0;
+  distinctDrinkCategories: Set<string> = new Set<string>();
+  categoryExpanded: Map<string, boolean> = new Map<string, boolean>();
+  showMeals: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -29,7 +32,6 @@ export class OrderComponent implements OnInit {
     this.http.get<Meal[]>(HOST + "/order/list/meals").subscribe({
       next: meals => {
         this.availableMeals = meals;
-        console.log(this.availableMeals)
         this.availableMeals.sort((a, b) => {
           if (a.identifier < b.identifier) {
             return -1;
@@ -54,10 +56,21 @@ export class OrderComponent implements OnInit {
             return 0;
           }
         });
+
+        this.availableDrinks.forEach(drink => {
+          this.distinctDrinkCategories.add(drink.category);
+        })
+        this.distinctDrinkCategories.forEach(category => {
+          this.categoryExpanded.set(category, false);
+        })
       }
     });
   }
-  
+
+  getDrinksOfCategory(category: string) : Drink[]
+ {
+  return this.availableDrinks.filter(drink => drink.category == category)
+ }
 
   addMeal(meal: Meal): void {
     meal.amount++;
