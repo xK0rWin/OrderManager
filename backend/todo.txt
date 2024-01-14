@@ -1,4 +1,2 @@
 - make order configureable in /order-confirm
 - endpoint to remove items from order? -> add "served" property to item
-- order property delivered at?
-- when kitchen says ready dont ready the part for drinks and the other way around!

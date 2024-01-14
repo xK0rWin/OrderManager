@@ -24,7 +24,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.zone.run(() => {
         this.http.get<Order[]>(HOST + "/order/desc").subscribe({
           next: orders => {
-            this.orders = orders;
+            console.log(orders)
+            this.orders = orders.sort((a, b) => {
+              if (a.drinkOrder.status == 'READY' || a.mealOrder.status == 'READY') {
+                return -1;
+              } else if (b.drinkOrder.status == 'READY' || b.mealOrder.status == 'READY') {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
           }
         });
       });
@@ -43,7 +52,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.http.get<Order[]>(HOST + "/order/desc").subscribe({
       next: orders => {
-        this.orders = orders;
+        this.orders = this.orders = orders.sort((a, b) => {
+          if (a.drinkOrder.status == 'READY' || a.mealOrder.status == 'READY') {
+            return -1;
+          } else if (b.drinkOrder.status == 'READY' || b.mealOrder.status == 'READY') {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
       }
     });
   }

@@ -107,9 +107,8 @@ export class OrderComponent implements OnInit {
       this.http.post<HttpResponse<String>>(HOST + "/order", this.order).subscribe({
         next: response => {
           if (typeof response === 'number') {
-            this.router.navigate(['/order-confirm', response]);
+            this.router.navigate(['']);
           }
-
         }
       });
     } else {

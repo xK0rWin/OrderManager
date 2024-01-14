@@ -23,7 +23,7 @@
       <div class="card-body mb-2 row">
         <div class="col-8">
           <h5 class="card-title">Bestellung: {{ order.id }} - {{ order.dateTime | date: 'short' }}</h5>
-          <h5 class="col-4 mb-1 mt-4">Status: {{ calcOrderStatus(order) }}</h5>
+          <h5 class="col-6 mb-1 mt-4">Status: {{ calcOrderStatus(order) }}</h5>
   
           <div class="col-4 mb-1 mt-4">
             <h5>Tisch: {{ order.tableNumber }}</h5>
@@ -51,10 +51,10 @@
             </div>
             <div class="col-4 mb-1 d-flex align-items-center justify-content-center flex-column">
               <button class="btn btn-primary mt-2" (click)="navigateToDetails(order)">Details anzeigen</button>
-              <button *ngIf="order.mealOrder.meals.length > 0" class="btn btn-danger mt-2" (click)="setOrderMealStatus(order, 'OPEN')">Set Meals Open</button>
-              <button *ngIf="order.drinkOrder.drinks.length > 0" class="btn btn-danger mt-2" (click)="setOrderDrinkStatus(order, 'OPEN')">Set Drinks Open</button>
-              <button *ngIf="order.mealOrder.meals.length > 0" class="btn btn-success mt-2" (click)="setOrderMealStatus(order, 'READY')">Set Meals Ready</button>
-              <button *ngIf="order.drinkOrder.drinks.length > 0" class="btn btn-success mt-2" (click)="setOrderDrinkStatus(order, 'READY')">Set Drinks Ready</button>
+              <button *ngIf="order.mealOrder.meals.length > 0" class="btn btn-danger mt-2" (click)="setOrderMealStatus(order, 'OPEN')">Speisen offen setzen</button>
+              <button *ngIf="order.drinkOrder.drinks.length > 0" class="btn btn-danger mt-2" (click)="setOrderDrinkStatus(order, 'OPEN')">Getränke offen setzen</button>
+              <button *ngIf="order.mealOrder.meals.length > 0" class="btn btn-success mt-2" (click)="setOrderMealStatus(order, 'READY')">Speisen bereit setzen</button>
+              <button *ngIf="order.drinkOrder.drinks.length > 0" class="btn btn-success mt-2" (click)="setOrderDrinkStatus(order, 'READY')">Getränke bereit setzen</button>
             </div>
           </div>
         </div>
