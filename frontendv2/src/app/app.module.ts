@@ -13,6 +13,7 @@ import { DashboardDrinkComponent } from './dashboard-drink/dashboard-drink.compo
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../authInterceptor';
 import { LoginComponent } from './login/login.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    FontAwesomeModule,
   ],
   providers: [
     {

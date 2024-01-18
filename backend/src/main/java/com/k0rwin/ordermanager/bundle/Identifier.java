@@ -7,9 +7,9 @@ public class Identifier {
     public static String WASSER_MEDIUM = "Wasser Medium";
     public static String WASSER_CLASSIC = "Wasser Classic";
     public static String APFELSCHORLE = "Apfelschorle";
-    public static String JOHANNISBEERSCHORLE = "Johannisbeerschorle";
+    public static String JOHANNISBEERSCHORLE = "Johannisbeer Schorle";
     public static String ORANGENSAFT = "Orangensaft";
-    public static String ORANGENSAFTSCHORLE = "Orangensaftschorle";
+    public static String ORANGENSAFTSCHORLE = "Orangensaft Schorle";
     public static String COLA = "Cola";
     public static String FANTA = "Fanta";
 
@@ -55,6 +55,7 @@ public class Identifier {
     //Meals
     public static String WURSTSALAT = "Wurstsalat";
     public static String KAESESALAT = "Kaesesalat";
+    public static String STRASSBURGER = "Strassburger";
     public static String SCHUDIWECK_SCHINKEN = "Schudiweck Schinken";
     public static String SCHUDIWECK_KAESE = "Schudiweck Kaese";
     public static String WIENERLE = "Wienerle";

@@ -54,6 +54,7 @@ public class Price {
     //Meals
     public static double WURSTSALAT = 11.00;
     public static double KAESESALAT = 11.00;
+    public static double STRASSBURGER = 11.00;
     public static double SCHUDIWECK_SCHINKEN = 4.50;
     public static double SCHUDIWECK_KAESE = 4.50;
     public static double WIENERLE = 7.50;

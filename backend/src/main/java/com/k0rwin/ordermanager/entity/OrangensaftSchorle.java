@@ -13,13 +13,13 @@ import javax.persistence.Entity;
 @Setter
 @Entity
 @DiscriminatorValue("ORANGENSAFTSCHORLE")
-public class Orangensaftschorle extends Drink {
+public class OrangensaftSchorle extends Drink {
 
-    public Orangensaftschorle() {
+    public OrangensaftSchorle() {
         super(Price.ORANGENSAFTSCHORLE);
     }
 
-    public Orangensaftschorle(Integer amount) {
+    public OrangensaftSchorle(Integer amount) {
         super(Price.ORANGENSAFTSCHORLE, amount);
     }
 

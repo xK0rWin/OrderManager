@@ -6,6 +6,8 @@ import { Drink } from '../models/drink.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HOST } from '../config';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-order',
@@ -25,6 +27,7 @@ export class OrderComponent implements OnInit {
   distinctDrinkCategories: Set<string> = new Set<string>();
   categoryExpanded: Map<string, boolean> = new Map<string, boolean>();
   showMeals: boolean = false;
+  expand = faUpRightAndDownLeftFromCenter;
 
   constructor(private http: HttpClient, private router: Router) {}
 
