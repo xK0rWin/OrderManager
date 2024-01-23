@@ -14,6 +14,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../authInterceptor';
 import { LoginComponent } from './login/login.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PrintLayoutComponent } from './print-layout/print-layout.component';
+import { OrderBoxComponent } from './order-box/order-box.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DashboardMealComponent,
     DashboardDrinkComponent,
     LoginComponent,
+    PrintLayoutComponent,
+    OrderBoxComponent,
   ],
   imports: [
     CommonModule,

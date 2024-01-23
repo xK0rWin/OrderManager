@@ -66,4 +66,8 @@ export class DashboardDrinkComponent implements OnInit, OnDestroy {
         return 'white';
     }
   }
+
+  setOrderToPrint(order: Order) {
+    
+  }
 }

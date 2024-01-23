@@ -1,6 +1,15 @@
 .container-fluid {
-    padding: 20px;
-  }
-  
+  padding: 20px;
+}
 
-  
+@media print {
+  :not(.print) {
+    visibility: hidden;
+  }
+}
+
+@media print {
+  .print {
+    visibility: visible !important;
+  }
+}
