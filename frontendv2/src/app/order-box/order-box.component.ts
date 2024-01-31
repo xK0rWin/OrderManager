@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Order } from '../models/order.model';
 import { HttpClient } from '@angular/common/http';
-import { HOST } from '../config';
+import { HOST, PRINTER } from '../config';
 
 @Component({
   selector: 'app-order-box',
@@ -58,7 +58,7 @@ export class OrderBoxComponent {
     //Create an XMLHttpRequest object
     var xhr = new XMLHttpRequest();
     //Set the end point address
-    var url = 'http://192.168.178.141/cgi-bin/epos/service.cgi?devid=local_printer&timeout=10000';
+    var url = `${PRINTER}/cgi-bin/epos/service.cgi?devid=local_printer&timeout=10000`;
     //Open an XMLHttpRequest object
     xhr.open('POST', url, true);
     //<Header settings>
