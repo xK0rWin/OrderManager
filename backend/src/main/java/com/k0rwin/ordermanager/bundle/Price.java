@@ -44,6 +44,8 @@ public class Price {
     public static double GRAUBURGUNDER_GLAS = 6.00;
     public static double GRAUBURGUNDER_FL = 22.00;
     public static double WEINSCHORLE_ROT = 5.00;
+    public static double WEINSCHORLE_ROT_SAUER = 5.00;
+    public static double WEINSCHORLE_WEISS_SAUER = 5.00;
     public static double WEINSCHORLE_WEISS = 5.00;
     public static double HEXECCO_GLAS = 4.00;
     public static double HEXECCO_FL = 24.00;

@@ -44,8 +44,10 @@ public class Identifier {
     public static String RIESLING_FL = "Riesling Flasche";
     public static String GRAUBURGUNDER_GLAS = "Grauburgunder Glas";
     public static String GRAUBURGUNDER_FL = "Grauburgunder Flasche";
-    public static String WEINSCHORLE_ROT = "Weinschorle Rot";
-    public static String WEINSCHORLE_WEISS = "Weinschorle Weiss";
+    public static String WEINSCHORLE_ROT = "Weinschorle Rot Suess";
+    public static String WEINSCHORLE_ROT_SAUER = "Weinschorle Rot Sauer";
+    public static String WEINSCHORLE_WEISS_SAUER = "Weinschorle Weiss Sauer";
+    public static String WEINSCHORLE_WEISS = "Weinschorle Weiss Suess";
     public static String HEXECCO_GLAS = "Hexecco Glas";
     public static String HEXECCO_FL = "Hexecco Flasche";
 
