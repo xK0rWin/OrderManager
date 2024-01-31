@@ -60,5 +60,9 @@
         </div>
       </div>
     </div>
+    <div *ngIf="isAdmin" class="d-flex">
+      <button class="btn btn-success mx-auto m-3" (click)="kitchenview()">zur Küchenansicht</button>
+      <button class="btn btn-danger mx-auto m-3" (click)="frontview()">zur Thekenansicht</button>
+    </div>
 </div>
   

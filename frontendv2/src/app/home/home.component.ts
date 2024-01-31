@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   deliveredOrders: Order[] = [];
   waiterName!: string;
   showDelivered: boolean = false;
+  isAdmin: boolean = false;
 
   constructor(private router: Router, private http: HttpClient, private sseService: SseService, private zone: NgZone) {
     const eventSource = this.sseService.openEventSource();
@@ -51,6 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       this.waiterName = "";
     }
+    this.isAdmin = (this.waiterName == "Admin");
     this.http.get<Order[]>(HOST + "/order/desc").subscribe({
       next: orders => {
         let waiter = localStorage.getItem("waiter_name");
@@ -80,7 +82,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.saveWaiterInStorage();
     // Assuming you have a method to create a new order in your service
     this.router.navigate(['/order']);
-
   }
 
   ngOnDestroy() : void {
@@ -142,5 +143,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     return status;
+  }
+
+  kitchenview(): void {
+    this.router.navigate(['/dashboard-meal']);
+  }
+
+  frontview(): void {
+    this.router.navigate(['/dashboard-drink']);
   }
 }
