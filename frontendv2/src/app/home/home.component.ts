@@ -24,8 +24,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.zone.run(() => {
         this.http.get<Order[]>(HOST + "/order/desc").subscribe({
           next: orders => {
-            console.log(orders)
-            this.orders = orders.sort((a, b) => {
+            let waiter = localStorage.getItem("waiter_name");
+            this.orders = orders.filter(order => order.waiter == waiter);
+            this.orders = this.orders.sort((a, b) => {
               if (a.drinkOrder.status == 'READY' || a.mealOrder.status == 'READY') {
                 return -1;
               } else if (b.drinkOrder.status == 'READY' || b.mealOrder.status == 'READY') {
@@ -52,7 +53,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.http.get<Order[]>(HOST + "/order/desc").subscribe({
       next: orders => {
-        this.orders = this.orders = orders.sort((a, b) => {
+        let waiter = localStorage.getItem("waiter_name");
+        this.orders = orders.filter(order => order.waiter == waiter);
+        this.orders = this.orders.sort((a, b) => {
           if (a.drinkOrder.status == 'READY' || a.mealOrder.status == 'READY') {
             return -1;
           } else if (b.drinkOrder.status == 'READY' || b.mealOrder.status == 'READY') {

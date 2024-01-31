@@ -12,20 +12,20 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-@DiscriminatorValue("SPAETB_KA_MILD_FL")
-public class SpaetburgunderHexMildFl extends Drink {
+@DiscriminatorValue("GRAUBURGUNDER_FL")
+public class GrauburgunderFlasche extends Drink {
 
-    public SpaetburgunderHexMildFl() {
-        super(Price.SPAETB_KA_MILD_FL);
+    public GrauburgunderFlasche() {
+        super(Price.GRAUBURGUNDER_FL);
     }
 
-    public SpaetburgunderHexMildFl(Integer amount) {
-        super(Price.SPAETB_KA_MILD_FL, amount);
+    public GrauburgunderFlasche(Integer amount) {
+        super(Price.GRAUBURGUNDER_FL, amount);
     }
 
     @Override
     public String getIdentifier() {
-        return Identifier.SPAETB_KA_MILD_FL;
+        return Identifier.GRAUBURGUNDER_FL;
     }
     @Override
     public String getCategory() {

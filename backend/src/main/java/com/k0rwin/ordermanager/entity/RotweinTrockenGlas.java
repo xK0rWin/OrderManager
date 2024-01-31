@@ -13,13 +13,13 @@ import javax.persistence.Entity;
 @Setter
 @Entity
 @DiscriminatorValue("SPAETB_KA_TROCKEN_GLAS")
-public class SpaetburgunderHexTrockenGlas extends Drink {
+public class RotweinTrockenGlas extends Drink {
 
-    public SpaetburgunderHexTrockenGlas() {
+    public RotweinTrockenGlas() {
         super(Price.SPAETB_KA_TROCKEN_GLAS);
     }
 
-    public SpaetburgunderHexTrockenGlas(Integer amount) {
+    public RotweinTrockenGlas(Integer amount) {
         super(Price.SPAETB_KA_TROCKEN_GLAS, amount);
     }
 

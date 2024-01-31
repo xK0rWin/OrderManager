@@ -30,24 +30,24 @@ public class Identifier {
     public static String JACKY_COLA = "Jacky Cola";
 
     //Champagne and Wine
-    public static String SPAETB_KA_MILD_GLAS = "Spaetburgunder Hex Mild Glas";
-    public static String SPAETB_KA_TROCKEN_GLAS = "Spaetburgunder Hex Trocken Glas";
-    public static String SPAETB_WALD_MILD_GLAS = "Spaetburgunder Waldulmer Mild Glas";
-    public static String SPAETB_WALD_TROCKEN_GLAS = "Spaetburgunder Waldulmer Trocken Glas";
-    public static String SPAETB_KA_MILD_FL = "Spaetburgunder Hex Mild Fl";
-    public static String SPAETB_KA_TROCKEN_FL = "Spaetburgunder Hex Trocken Fl";
-    public static String SPAETB_WALD_MILD_FL = "Spaetburgunder Waldulmer Mild Fl";
-    public static String SPAETB_WALD_TROCKEN_FL = "Spaetburgunder Waldulmer Trocken Fl";
-    public static String MUELLER_THURGAU_GLAS = "Mueller Thurgau Glas";
-    public static String MUELLER_THURGAU_FL = "Mueller Thurgau Fl";
+    public static String SPAETB_KA_MILD_GLAS = "Rotwein Mild Glas";
+    public static String SPAETB_KA_TROCKEN_GLAS = "Rotwein Trocken Glas";
+    public static String SPAETB_WALD_MILD_GLAS = "Waldulmer Mild Glas";
+    public static String SPAETB_WALD_TROCKEN_GLAS = "Waldulmer Trocken Glas";
+    public static String SPAETB_KA_MILD_FL = "Rotwein Mild Flasche";
+    public static String SPAETB_KA_TROCKEN_FL = "Rotwein Trocken Flasche";
+    public static String SPAETB_WALD_MILD_FL = "Waldulmer Mild Flasche";
+    public static String SPAETB_WALD_TROCKEN_FL = "Waldulmer Trocken Flasche";
+    public static String MUELLER_THURGAU_GLAS = "Mueller Glas";
+    public static String MUELLER_THURGAU_FL = "Mueller Flasche";
     public static String RIESLING_GLAS = "Riesling Glas";
-    public static String RIESLING_FL = "Riesling Fl";
-    public static String GRAUBURGUNDER_GLAS = "Grauburgunder Trocken Glas";
-    public static String GRAUBURGUNDER_FL = "Grauburgunder Trocken Fl";
+    public static String RIESLING_FL = "Riesling Flasche";
+    public static String GRAUBURGUNDER_GLAS = "Grauburgunder Glas";
+    public static String GRAUBURGUNDER_FL = "Grauburgunder Flasche";
     public static String WEINSCHORLE_ROT = "Weinschorle Rot";
     public static String WEINSCHORLE_WEISS = "Weinschorle Weiss";
     public static String HEXECCO_GLAS = "Hexecco Glas";
-    public static String HEXECCO_FL = "Hexecco Fl";
+    public static String HEXECCO_FL = "Hexecco Flasche";
 
     //Coffee
     public static String KAFFEE = "Kaffee";
@@ -59,8 +59,8 @@ public class Identifier {
     public static String SCHUDIWECK_SCHINKEN = "Schudiweck Schinken";
     public static String SCHUDIWECK_KAESE = "Schudiweck Kaese";
     public static String WIENERLE = "Wienerle";
-    public static String KARTOFFELSUPPE_VEG = "Kartoffelsuppe Mit Brot";
-    public static String KARTOFFELSUPPE_WIENERLE = "Kartoffelsuppe Mit Wienerle";
+    public static String KARTOFFELSUPPE_VEG = "Suppe Brot";
+    public static String KARTOFFELSUPPE_WIENERLE = "Suppe Wienerle";
     public static String SCHINKEN_BAGUETTE = "Schinken Baguette";
     public static String MOZARELLA_BAGUETTE = "Mozarella Baguette";
 }

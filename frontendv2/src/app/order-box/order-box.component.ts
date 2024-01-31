@@ -39,5 +39,33 @@ export class OrderBoxComponent {
       </html>`
     );
     popupWin.document.close();
-}
+  }
+
+  testPrint(): void {
+    let request = '<epos-print xmlns="http://www.epson-pos.com/schemas/2011/03/epos-print">';
+    request += '<text lang="en" smooth="true"/>';
+    request += '<text font="font_a"/>';
+    request += `<text width="2" height="2">Tisch ${this.order.tableNumber}&#13;&#10;</text>`;
+    request += `<text width="1" height="1">ID ${this.order.id}&#13;&#10;</text>`;
+    for (let drink of this.order.drinkOrder.drinks) {
+      request += `<text width="1" height="1">${drink.amount + "x " + drink.identifier}&#13;&#10;</text>`;
+    }
+    request += '<cut type="feed"/>';
+    request += '</epos-print>';
+
+    //Create a SOAP envelop
+    var soap = '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' + '<s:Body>' + request + '</s:Body></s:Envelope>';
+    //Create an XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+    //Set the end point address
+    var url = 'http://192.168.178.141/cgi-bin/epos/service.cgi?devid=local_printer&timeout=10000';
+    //Open an XMLHttpRequest object
+    xhr.open('POST', url, true);
+    //<Header settings>
+    xhr.setRequestHeader('Content-Type', 'text/xml; charset=utf-8');
+    xhr.setRequestHeader('If-Modified-Since', 'Thu, 01 Jan 1970 00:00:00 GMT');
+    xhr.setRequestHeader('SOAPAction', '""');
+    // Send print document
+    xhr.send(soap);
+  }
 }
