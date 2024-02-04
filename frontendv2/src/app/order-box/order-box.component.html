@@ -2,6 +2,7 @@
     <div id="print-section{{order.id}}">
         <div><strong>Tisch: {{ order.tableNumber }}</strong></div>
     <div>Bestellung {{order.id}}</div>
+    <div *ngIf="order.drinkOrder.specialInfo"><b>Info: {{order.drinkOrder.specialInfo}}</b></div>
     <div>Bedienung: {{ order.waiter }}</div>
     <div *ngFor="let drink of order.drinkOrder.drinks">
         <span>{{ drink.identifier }} ({{ drink.amount }}x)</span>

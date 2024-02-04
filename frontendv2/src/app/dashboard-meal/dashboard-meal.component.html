@@ -7,7 +7,7 @@
                 <li *ngFor="let order of orders" class="list-group-item m-1" [style.background-color]="getBgColor(order)">
                     <strong>Tisch: {{ order.tableNumber }}</strong>
                     <div>Bestellung {{ order.id }}</div>
-                    <div *ngIf="order.specialInfo"><b>Info: {{order.specialInfo}}</b></div>
+                    <div *ngIf="order.mealOrder.specialInfo"><b>Info: {{order.mealOrder.specialInfo}}</b></div>
                     <div>Bedienung: {{ order.waiter }}</div>
                     <div *ngFor="let meal of order.mealOrder.meals">
                         <span>{{ meal.identifier }} (Menge: {{ meal.amount }})</span>

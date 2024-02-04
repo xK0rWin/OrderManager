@@ -40,10 +40,6 @@
     </div>
 
     <div class="container-fluid">
-      <div class="row d-flex flex-row">
-        <label for="special_info" class="form-label m-1 p-2">Zusatzinfo: (optional)</label>
-        <input type="text" class="form-control m-1 p-2" [(ngModel)]="order.specialInfo" name="special_info">
-      </div>
       <div class="row">
         <div class="col-6">
           <button type="button" class="btn btn-success" (click)="submitOrder()">Bestellung
@@ -60,6 +56,14 @@
       </div>
       <div class="row">
         <p><strong>Zwischensumme:</strong> {{ subtotal | currency:'EUR':'symbol':'1.2-2' }}</p>
+      </div>
+      <div class="row d-flex flex-row">
+        <label for="special_info" class="form-label m-1 p-2">Zusatzinfo Küche:</label>
+        <input type="text" class="form-control m-1 p-2" [(ngModel)]="order.mealOrder.specialInfo" name="special_info">
+      </div>
+      <div class="row d-flex flex-row">
+        <label for="special_info" class="form-label m-1 p-2">Zusatzinfo Theke:</label>
+        <input type="text" class="form-control m-1 p-2" [(ngModel)]="order.drinkOrder.specialInfo" name="special_info">
       </div>
     </div>
   </form>

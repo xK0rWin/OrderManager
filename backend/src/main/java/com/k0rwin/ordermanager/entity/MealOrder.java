@@ -27,6 +27,8 @@ public class MealOrder {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private OrderStatusEnum status;
+    @Column(name = "special_info")
+    private String specialInfo;
 
     public MealOrder() {
     }

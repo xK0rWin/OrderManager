@@ -8,15 +8,16 @@ export interface Order {
   drinkOrder: DrinkOrder;
   dateTime?: Date;
   waiter?: string;
-  specialInfo?: string;
 }
 
 export interface MealOrder {
   meals: Meal[];
   status?: string;
+  specialInfo?: string;
 }
 
 export interface DrinkOrder {
   drinks: Drink[];
   status?: string;
+  specialInfo?: string;
 }
