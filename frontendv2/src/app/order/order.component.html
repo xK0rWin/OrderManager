@@ -6,7 +6,7 @@
     </div>
     <div class="col-9 d-flex p-2">
       <label for="tableNumber" class="form-label w-40 m-1 p-2">Tischnummer:</label>
-      <input type="text" class="form-control w-50 m-1 p-2" [(ngModel)]="order.tableNumber" name="tableNumber" required>
+      <input type="number" class="form-control w-50 m-1 p-2" [(ngModel)]="order.tableNumber" name="tableNumber" required>
     </div>
 
     <div class="col">
@@ -40,6 +40,10 @@
     </div>
 
     <div class="container-fluid">
+      <div class="row d-flex flex-row">
+        <label for="special_info" class="form-label m-1 p-2">Zusatzinfo: (optional)</label>
+        <input type="text" class="form-control m-1 p-2" [(ngModel)]="order.specialInfo" name="special_info">
+      </div>
       <div class="row">
         <div class="col-6">
           <button type="button" class="btn btn-success" (click)="submitOrder()">Bestellung

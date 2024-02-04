@@ -8,6 +8,7 @@ export interface Order {
   drinkOrder: DrinkOrder;
   dateTime?: Date;
   waiter?: string;
+  specialInfo?: string;
 }
 
 export interface MealOrder {

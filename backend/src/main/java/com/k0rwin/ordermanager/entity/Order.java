@@ -32,15 +32,19 @@ public class Order {
     private LocalDateTime dateTime;
     @Column(name = "waiter", nullable = false)
     private String waiter;
+    @Column(name = "special_info")
+    private String specialInfo;
 
     public Order() {
     }
 
-    public Order(Integer tableNumber , MealOrder mealOrder, DrinkOrder drinkOrder, LocalDateTime dateTime, String waiter) {
+    public Order(Long id, Integer tableNumber, MealOrder mealOrder, DrinkOrder drinkOrder, LocalDateTime dateTime, String waiter, String specialInfo) {
+        this.id = id;
         this.tableNumber = tableNumber;
-        this.drinkOrder = drinkOrder;
         this.mealOrder = mealOrder;
+        this.drinkOrder = drinkOrder;
         this.dateTime = dateTime;
         this.waiter = waiter;
+        this.specialInfo = specialInfo;
     }
 }
