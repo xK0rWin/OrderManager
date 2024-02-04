@@ -48,7 +48,7 @@ export class OrderBoxComponent {
     request += `<text width="2" height="2">Tisch ${this.order.tableNumber}&#13;&#10;</text>`;
     request += `<text width="1" height="1">ID ${this.order.id}&#13;&#10;</text>`;
     for (let drink of this.order.drinkOrder.drinks) {
-      request += `<text width="1" height="1">${drink.amount + "x " + drink.identifier}&#13;&#10;</text>`;
+      request += `<text width="1.5" height="1.5">${drink.amount + "x " + drink.identifier}&#13;&#10;</text>`;
     }
     if (this.order.drinkOrder.drinks.length < 8) {
       for (let i = 0; i < (8 - this.order.drinkOrder.drinks.length); i++) {
