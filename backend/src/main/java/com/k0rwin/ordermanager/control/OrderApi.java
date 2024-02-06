@@ -95,6 +95,12 @@ public class OrderApi {
         return new ResponseEntity<>(openOrders, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/allorders", produces = "application/json")
+    public ResponseEntity<List<Order>> getAllOrders() {
+        List<Order> allOrders = new ArrayList<>(orderRepository.findAllByOrderById());
+        return new ResponseEntity<>(allOrders, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/desc", produces = "application/json")
     public ResponseEntity<List<Order>> getOrdersSortedByStatusDesc() {
         List<MealOrder> openMealOrders = mealOrderRepository.findAllByOrderByStatusDescIdAsc().stream()
@@ -206,6 +212,7 @@ public class OrderApi {
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         if (orderRepository.existsById(id)) {
             orderRepository.deleteById(id);
+            sendSseEvent("order deleted");
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

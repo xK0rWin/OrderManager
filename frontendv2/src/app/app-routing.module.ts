@@ -7,6 +7,7 @@ import { DashboardMealComponent } from './dashboard-meal/dashboard-meal.componen
 import { DashboardDrinkComponent } from './dashboard-drink/dashboard-drink.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../authguard';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'order-confirm/:id', component: OrderConfirmComponent, canActivate: [AuthGuard]},
   {path: 'dashboard-meal', component: DashboardMealComponent, canActivate: [AuthGuard]},
   {path: 'dashboard-drink', component: DashboardDrinkComponent, canActivate: [AuthGuard]},
+  {path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent}
 ];
 
