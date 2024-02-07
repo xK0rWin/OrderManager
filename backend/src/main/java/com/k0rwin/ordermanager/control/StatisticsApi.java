@@ -69,7 +69,7 @@ public class StatisticsApi {
             if (!revenuePerWaiter.containsKey(order.getWaiter())) {
                 revenuePerWaiter.put(order.getWaiter(), 0.0);
             }
-            revenuePerWaiter.put(order.getWaiter(), ordersPerWaiter.get(order.getWaiter()) + Order.getTotal(order));
+            revenuePerWaiter.put(order.getWaiter(), revenuePerWaiter.get(order.getWaiter()) + Order.getTotal(order));
         }
 
         Statistics statistics = new Statistics(salesPerItem, revenuePerItem, revenuePerWaiter, ordersPerWaiter);
