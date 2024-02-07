@@ -8,6 +8,7 @@ import { DashboardDrinkComponent } from './dashboard-drink/dashboard-drink.compo
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../authguard';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'dashboard-meal', component: DashboardMealComponent, canActivate: [AuthGuard]},
   {path: 'dashboard-drink', component: DashboardDrinkComponent, canActivate: [AuthGuard]},
   {path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard]},
+  {path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent}
 ];
 

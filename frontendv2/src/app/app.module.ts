@@ -17,6 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PrintLayoutComponent } from './print-layout/print-layout.component';
 import { OrderBoxComponent } from './order-box/order-box.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     PrintLayoutComponent,
     OrderBoxComponent,
     AdminPanelComponent,
+    StatisticsComponent,
   ],
   imports: [
     CommonModule,

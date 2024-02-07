@@ -1,0 +1,42 @@
+<div class="container mt-4">
+    <h2>Statistik</h2>
+    <div class="form-group">
+        <label for="dateInput">Select Date:</label>
+        <input type="date" id="dateInput" class="form-control" [(ngModel)]="selectedDate" (change)="getStatsOfDay()">
+      </div>
+    <div class="row">
+      <div class="col">
+        <h4>Verkaufte Einheiten</h4>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let item of statistics?.sales_per_item | keyvalue">
+            {{ item.key }}: {{ item.value }}
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Umsatz</h4>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let item of statistics?.rev_per_item | keyvalue">
+            {{ item.key }}: {{ item.value | currency: 'EUR' }}
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Umsatz pro Bedienung</h4>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let waiter of statistics?.rev_per_waiter | keyvalue">
+            {{ waiter.key }}: {{ waiter.value | currency: 'EUR' }}
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Anzahl Bestellungen</h4>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let waiter of statistics?.order_per_waiter | keyvalue">
+            {{ waiter.key }}: {{ waiter.value }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

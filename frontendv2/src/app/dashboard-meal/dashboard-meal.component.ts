@@ -3,7 +3,6 @@ import { Order } from '../models/order.model';
 import { HttpClient } from '@angular/common/http';
 import { HOST } from '../config';
 import { SseService } from '../sse-service.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-meal',

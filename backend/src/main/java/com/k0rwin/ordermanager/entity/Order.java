@@ -44,4 +44,17 @@ public class Order {
         this.dateTime = dateTime;
         this.waiter = waiter;
     }
+
+    public static double getTotal(Order order) {
+        double sum = 0;
+        for (Drink drink : order.drinkOrder.getDrinks()) {
+            sum += drink.getPrice() * drink.getAmount();
+        }
+
+        for (Meal meal : order.mealOrder.getMeals()) {
+            sum += meal.getPrice() * meal.getAmount();
+        }
+
+        return sum;
+    }
 }

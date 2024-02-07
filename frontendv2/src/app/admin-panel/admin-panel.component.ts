@@ -44,4 +44,8 @@ export class AdminPanelComponent implements OnInit {
       });
     }
   }
+
+  statView(): void {
+    this.router.navigate(['statistics']);
+  }
 }
