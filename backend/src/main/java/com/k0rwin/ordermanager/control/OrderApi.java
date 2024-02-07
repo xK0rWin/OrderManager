@@ -176,7 +176,11 @@ public class OrderApi {
         }
         order.setDateTime(LocalDateTime.now());
         Order entity = orderRepository.save(order);
-        sendSseEvent("new order created");
+        if (order.getMealOrder().getMeals().isEmpty()) {
+            sendSseEvent("new order created");
+        } else {
+            sendSseEvent("new mealorder");
+        }
         return new ResponseEntity<>(entity.getId(), HttpStatus.OK);
     }
 

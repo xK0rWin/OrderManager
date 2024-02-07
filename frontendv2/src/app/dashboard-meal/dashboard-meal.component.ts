@@ -20,6 +20,9 @@ export class DashboardMealComponent implements OnInit, OnDestroy {
     console.log("Opened EventSource");
     eventSource.onmessage = (event) => {
       console.log('Received event:', event);
+      if (event.data === 'new mealorder') {
+        this.playSound();
+      }
       this.zone.run(() => {
         this.http.get<Order[]>(HOST + "/order/mealonly/open").subscribe({
           next: orders => {
@@ -56,6 +59,13 @@ export class DashboardMealComponent implements OnInit, OnDestroy {
         this.mealOverview = result;
       }
     });
+  }
+
+  playSound(): void {
+    const audio = new Audio();
+    audio.src = '../../../assets/sounds/discord-notification.mp3';
+    audio.load();
+    audio.play();
   }
 
   ngOnDestroy() : void {
