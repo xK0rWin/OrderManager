@@ -49,7 +49,7 @@ public class StatisticsApi {
                     revenuePerItem.put(meal.getIdentifier(), 0.0);
                 }
                 salesPerItem.put(meal.getIdentifier(), salesPerItem.get(meal.getIdentifier()) + meal.getAmount());
-                revenuePerItem.put(meal.getIdentifier(), salesPerItem.get(meal.getIdentifier()) + (meal.getAmount() * meal.getPrice()));
+                revenuePerItem.put(meal.getIdentifier(), revenuePerItem.get(meal.getIdentifier()) + (meal.getAmount() * meal.getPrice()));
             }
 
             for (Drink drink : order.getDrinkOrder().getDrinks()) {
@@ -58,7 +58,7 @@ public class StatisticsApi {
                     revenuePerItem.put(drink.getIdentifier(), 0.0);
                 }
                 salesPerItem.put(drink.getIdentifier(), salesPerItem.get(drink.getIdentifier()) + drink.getAmount());
-                revenuePerItem.put(drink.getIdentifier(), salesPerItem.get(drink.getIdentifier()) + (drink.getAmount() * drink.getPrice()));
+                revenuePerItem.put(drink.getIdentifier(), revenuePerItem.get(drink.getIdentifier()) + (drink.getAmount() * drink.getPrice()));
             }
 
             if (!ordersPerWaiter.containsKey(order.getWaiter())) {
