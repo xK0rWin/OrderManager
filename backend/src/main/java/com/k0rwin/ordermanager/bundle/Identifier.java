@@ -17,7 +17,9 @@ public class Identifier {
     public static String PILS = "Pils";
     public static String PILS_ALKFREI = "Pils Alkoholfrei";
     public static String RADLER = "Radler";
+    public static String RADLER_SAUER = "Radler Sauer";
     public static String HEFEWEIZEN = "Hefeweizen";
+    public static String COLAWEIZEN = "Colaweizen";
     public static String HEFEWEIZEN_ALKFREI = "Hefeweizen Alkoholfrei";
 
     //Spirituosen

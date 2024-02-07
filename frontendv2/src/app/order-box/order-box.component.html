@@ -8,9 +8,13 @@
         <span>{{ drink.identifier }} ({{ drink.amount }}x)</span>
     </div>
     </div>
-    <div *ngIf="!printView">
-        <button class="btn btn-success m-1" (click)="setOrderStatus(order, 'READY')">Bereit</button>
-        <button class="btn btn-primary m-1" (click)="setOrderStatus(order, 'DELIVERED')">Abgeholt</button>
-        <button class="btn btn-danger m-1" (click)="testPrint()">Druck</button>
+    <div class="d-flex" style="justify-content: space-between;">
+        <div>
+            <button class="btn btn-danger m-1" style="font-size: 1.5rem;" (click)="print()" [disabled]="blocked">Druck</button>
+            <button class="btn btn-success m-1" style="font-size: 1.5rem;" (click)="setOrderStatus(order, 'READY')">Bereit</button>
+        </div>
+        <div>
+            <button class="btn btn-danger m-1" style="font-size: 0.8rem;" (click)="resetPrintState()" [disabled]="!blocked">Reset</button>
+        </div>
     </div>
 </div>

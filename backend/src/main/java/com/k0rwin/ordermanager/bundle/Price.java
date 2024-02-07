@@ -16,7 +16,9 @@ public class Price {
     public static double PILS = 4.00;
     public static double PILS_ALKFREI = 4.00;
     public static double RADLER = 4.00;
-    public static double HEFEWEIZEN = 5.;
+    public static double RADLER_SAUER = 4.00;
+    public static double HEFEWEIZEN = 5.00;
+    public static double COLAWEIZEN = 5.00;
     public static double HEFEWEIZEN_ALKFREI = 5.00;
 
     //Spirituosen
