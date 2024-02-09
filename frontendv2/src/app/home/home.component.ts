@@ -152,4 +152,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   frontview(): void {
     this.router.navigate(['/dashboard-drink']);
   }
+
+  adminview(): void {
+    this.router.navigate(['/admin']);
+  }
 }
