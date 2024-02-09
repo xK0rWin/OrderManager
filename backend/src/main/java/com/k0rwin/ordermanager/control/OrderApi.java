@@ -112,10 +112,10 @@ public class OrderApi {
                         (order.getStatus() != OrderStatusEnum.DELIVERED)
                 ).toList();
         Set<Order> openOrders = new HashSet<>();
-        openOrders.addAll(openMealOrders.stream().map(mealOrder -> orderRepository.findByMealOrderById(mealOrder.getId()).orElseThrow()).toList());
-        openOrders.addAll(openDrinkOrders.stream().map(drinkOrder -> orderRepository.findByDrinkOrderById(drinkOrder.getId()).orElseThrow()).toList());
+        openOrders.addAll(openMealOrders.stream().map(mealOrder -> orderRepository.findByMealOrderById(mealOrder.getId()).orElse(null)).toList());
+        openOrders.addAll(openDrinkOrders.stream().map(drinkOrder -> orderRepository.findByDrinkOrderById(drinkOrder.getId()).orElse(null)).toList());
 
-        return new ResponseEntity<>(List.copyOf(openOrders), HttpStatus.OK);
+        return new ResponseEntity<>(openOrders.stream().filter(Objects::nonNull).toList(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/asc", produces = "application/json")
@@ -129,10 +129,10 @@ public class OrderApi {
                         (order.getStatus() != OrderStatusEnum.DELIVERED)
                 ).toList();
         Set<Order> openOrders = new HashSet<>();
-        openOrders.addAll(openMealOrders.stream().map(mealOrder -> orderRepository.findByMealOrderById(mealOrder.getId()).orElseThrow()).toList());
-        openOrders.addAll(openDrinkOrders.stream().map(drinkOrder -> orderRepository.findByDrinkOrderById(drinkOrder.getId()).orElseThrow()).toList());
+        openOrders.addAll(openMealOrders.stream().map(mealOrder -> orderRepository.findByMealOrderById(mealOrder.getId()).orElse(null)).toList());
+        openOrders.addAll(openDrinkOrders.stream().map(drinkOrder -> orderRepository.findByDrinkOrderById(drinkOrder.getId()).orElse(null)).toList());
 
-        return new ResponseEntity<>(List.copyOf(openOrders), HttpStatus.OK);
+        return new ResponseEntity<>(openOrders.stream().filter(Objects::nonNull).toList(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/delivered", produces = "application/json")

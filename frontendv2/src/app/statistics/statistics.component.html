@@ -38,5 +38,11 @@
         </ul>
       </div>
     </div>
+    <br>
+    <div *ngIf="statistics">
+      <h4>Gesamtumsatz: {{statistics.total_rev | currency: 'EUR'}}</h4>
+      <h4>Anzahl Speisen: {{statistics.meal_sales}}</h4>
+      <h4>Anzahl Getränke: {{statistics.drink_sales}}</h4>
+    </div>
   </div>
   

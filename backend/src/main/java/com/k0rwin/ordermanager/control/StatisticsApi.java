@@ -41,6 +41,9 @@ public class StatisticsApi {
         HashMap<String, Double> revenuePerItem = new HashMap<>();
         HashMap<String, Double> revenuePerWaiter = new HashMap<>();
         HashMap<String, Integer> ordersPerWaiter = new HashMap<>();
+        double totalRevenue = 0.0;
+        int mealSales = 0;
+        int drinkSales = 0;
 
         for (Order order : ordersOfDay) {
             for (Meal meal : order.getMealOrder().getMeals()) {
@@ -50,6 +53,8 @@ public class StatisticsApi {
                 }
                 salesPerItem.put(meal.getIdentifier(), salesPerItem.get(meal.getIdentifier()) + meal.getAmount());
                 revenuePerItem.put(meal.getIdentifier(), revenuePerItem.get(meal.getIdentifier()) + (meal.getAmount() * meal.getPrice()));
+                totalRevenue += meal.getAmount() * meal.getPrice();
+                mealSales += meal.getAmount();
             }
 
             for (Drink drink : order.getDrinkOrder().getDrinks()) {
@@ -59,6 +64,8 @@ public class StatisticsApi {
                 }
                 salesPerItem.put(drink.getIdentifier(), salesPerItem.get(drink.getIdentifier()) + drink.getAmount());
                 revenuePerItem.put(drink.getIdentifier(), revenuePerItem.get(drink.getIdentifier()) + (drink.getAmount() * drink.getPrice()));
+                totalRevenue += drink.getAmount() * drink.getPrice();
+                drinkSales += drink.getAmount();
             }
 
             if (!ordersPerWaiter.containsKey(order.getWaiter())) {
@@ -72,7 +79,7 @@ public class StatisticsApi {
             revenuePerWaiter.put(order.getWaiter(), revenuePerWaiter.get(order.getWaiter()) + Order.getTotal(order));
         }
 
-        Statistics statistics = new Statistics(salesPerItem, revenuePerItem, revenuePerWaiter, ordersPerWaiter);
+        Statistics statistics = new Statistics(salesPerItem, revenuePerItem, revenuePerWaiter, ordersPerWaiter, totalRevenue, mealSales, drinkSales);
         return new ResponseEntity<>(statistics, HttpStatus.OK);
     }
 }
