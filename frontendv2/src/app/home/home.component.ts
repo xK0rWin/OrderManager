@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.zone.run(() => {
       this.http.get<Order[]>(HOST + "/order/delivered").subscribe({
         next: orders => {
-          this.deliveredOrders = orders;
+          this.deliveredOrders = orders.reverse();
         }
       });
     });
