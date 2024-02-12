@@ -19,6 +19,7 @@ public class Identifier {
     public static String RADLER = "Radler";
     public static String RADLER_SAUER = "Radler Sauer";
     public static String HEFEWEIZEN = "Hefeweizen";
+    public static String RUSSISCHWEIZEN = "Russisch Weizen";
     public static String COLAWEIZEN = "Colaweizen";
     public static String HEFEWEIZEN_ALKFREI = "Hefeweizen Alkoholfrei";
 

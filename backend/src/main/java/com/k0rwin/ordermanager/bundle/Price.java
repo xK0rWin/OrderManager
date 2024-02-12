@@ -19,6 +19,7 @@ public class Price {
     public static double RADLER_SAUER = 4.00;
     public static double HEFEWEIZEN = 5.00;
     public static double COLAWEIZEN = 5.00;
+    public static double RUSSISCHWEIZEN = 5.00;
     public static double HEFEWEIZEN_ALKFREI = 5.00;
 
     //Spirituosen
