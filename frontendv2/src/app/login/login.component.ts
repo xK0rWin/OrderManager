@@ -16,9 +16,7 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   login() {
-    // Simple password check (replace with your actual authentication logic)
     if (this.password === PASSWORD) {
-      // Store the password in localStorage
       localStorage.setItem('password', this.password);
       this.router.navigate(['']);
     } else {
