@@ -42,10 +42,10 @@ public class OrderApi {
         List<Class<?>> entityClasses = ClassScanner.getClasses("com.k0rwin.ordermanager.entity");
 
         for (Class<?> clazz : entityClasses) {
-            if (clazz.getSuperclass().equals(Meal.class)) {
+            if (clazz.getSuperclass().equals(Meal.class) && !clazz.isAnnotationPresent(Deprecated.class)) {
                 Meal meal = (Meal) clazz.getDeclaredConstructor().newInstance();
                 meals.add(meal);
-            } else if (clazz.getSuperclass().equals(Drink.class)) {
+            } else if (clazz.getSuperclass().equals(Drink.class) && !clazz.isAnnotationPresent(Deprecated.class)) {
                 Drink drink = (Drink) clazz.getDeclaredConstructor().newInstance();
                 drinks.add(drink);
             }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
+@Deprecated
 @DiscriminatorValue("WIENERLE")
 public class Wienerle  extends Meal {
     public Wienerle() {

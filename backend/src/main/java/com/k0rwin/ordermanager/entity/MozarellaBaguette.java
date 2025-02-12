@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
+@Deprecated
 @DiscriminatorValue("MOZARELLA_BAGUETTE")
 public class MozarellaBaguette extends Meal {
     public MozarellaBaguette() {
