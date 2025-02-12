@@ -64,5 +64,9 @@ public class Price {
     public static double SCHUDIWECK_KAESE = 5.00;
     public static double BAUERNWUERSTE = 8.50;
     public static double KARTOFFELSUPPE_VEG = 6.50;
+    public static double KARTOFFELSUPPE_WIENERLE = 7.00;
+    public static double SCHINKEN_BAGUETTE = 6.50;
+    public static double WIENERLE = 6.50;
+    public static double MOZARELLA_BAGUETTE = 6.50;
     public static double GULASCHSUPPE = 7.50;
 }

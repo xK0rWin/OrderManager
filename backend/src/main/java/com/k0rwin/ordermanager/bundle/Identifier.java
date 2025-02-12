@@ -63,7 +63,11 @@ public class Identifier {
     public static String STRASSBURGER = "Strassburger";
     public static String SCHUDIWECK_SCHINKEN = "Schudiweck Schinken";
     public static String SCHUDIWECK_KAESE = "Schudiweck Kaese";
+    public static String WIENERLE = "Wienerle";
     public static String BAUERNWUERSTE = "Bauernwuerste";
     public static String KARTOFFELSUPPE_VEG = "Suppe Brot";
     public static String GULASCHSUPPE = "Suppe Gulasch";
+    public static String KARTOFFELSUPPE_WIENERLE = "Suppe Wienerle";
+    public static String SCHINKEN_BAGUETTE = "Schinken Baguette";
+    public static String MOZARELLA_BAGUETTE = "Mozarella Baguette";
 }

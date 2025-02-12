@@ -8,16 +8,16 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-@DiscriminatorValue("GULASCHSUPPE")
-public class SuppeGulasch extends Meal {
-    public SuppeGulasch() {
-        super(Price.GULASCHSUPPE);
+@DiscriminatorValue("KARTOFFELSUPPE_WIENERLE")
+public class SuppeWienerle extends Meal {
+    public SuppeWienerle() {
+        super(Price.KARTOFFELSUPPE_WIENERLE);
     }
-    public SuppeGulasch(Integer amount) {
-        super(Price.GULASCHSUPPE, amount);
+    public SuppeWienerle(Integer amount) {
+        super(Price.KARTOFFELSUPPE_WIENERLE, amount);
     }
     @Override
     public String getIdentifier() {
-        return Identifier.GULASCHSUPPE;
+        return Identifier.KARTOFFELSUPPE_WIENERLE;
     }
 }
