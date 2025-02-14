@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -35,5 +36,9 @@ public class MealOrder {
 
     public MealOrder(OrderStatusEnum status) {
         this.status = status;
+    }
+
+    public Optional<Meal> getMealByName(String name) {
+        return this.meals.stream().filter(m -> m.getIdentifier().equals(name)).findFirst();
     }
 }

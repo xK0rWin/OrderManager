@@ -9,8 +9,15 @@
                     <div>Bestellung {{ order.id }}</div>
                     <div *ngIf="order.mealOrder.specialInfo"><b>Info: {{order.mealOrder.specialInfo}}</b></div>
                     <div>Bedienung: {{ order.waiter }}</div>
-                    <div *ngFor="let meal of order.mealOrder.meals">
-                        <span>{{ meal.identifier }} (Menge: {{ meal.amount }})</span>
+                    <div *ngFor="let meal of sortedMeals(order)">
+                        <span *ngIf="meal.amountOpen > 0">{{ meal.identifier }} (Gesamt: {{ meal.amount }} | Offen: {{meal.amountOpen}})
+                            <button [disabled]="meal.amountOpen >= meal.amount" class="btn btn-success m-1" (click)="incOpenAmount(meal, order)">+</button>
+                            <button [disabled]="meal.amountOpen <= 0" class="btn btn-danger m-1" (click)="decOpenAmount(meal, order)">-</button>
+                        </span>
+                        <span *ngIf="meal.amountOpen <= 0"><del>{{ meal.identifier }} (Gesamt: {{ meal.amount }} | Offen: {{meal.amountOpen}})</del>
+                            <button [disabled]="meal.amountOpen >= meal.amount" class="btn btn-success m-1" (click)="incOpenAmount(meal, order)">+</button>
+                            <button [disabled]="meal.amountOpen <= 0" class="btn btn-danger m-1" (click)="decOpenAmount(meal, order)">-</button>
+                        </span>
                     </div>
                     <div>
                         <button class="btn btn-success m-1" (click)="setOrderStatus(order, 'READY')">Bereit</button>
@@ -38,8 +45,15 @@
                         <div><strong>Tisch: {{ order.tableNumber }}</strong></div>
                         <div>Bestellung {{ order.id }}</div>
                         <div>Bedienung: {{ order.waiter }}</div>
-                        <div *ngFor="let meal of order.mealOrder.meals">
-                            <span>{{ meal.identifier }} (Menge: {{ meal.amount }})</span>
+                        <div *ngFor="let meal of sortedMeals(order)">
+                            <span *ngIf="meal.amountOpen > 0">{{ meal.identifier }} (Gesamt: {{ meal.amount }} | Offen: {{meal.amountOpen}})
+                                <button [disabled]="meal.amountOpen >= meal.amount" class="btn btn-success m-1" (click)="incOpenAmount(meal, order)">+</button>
+                                <button [disabled]="meal.amountOpen <= 0" class="btn btn-danger m-1" (click)="decOpenAmount(meal, order)">-</button>
+                            </span>
+                            <span *ngIf="meal.amountOpen <= 0"><del>{{ meal.identifier }} (Gesamt: {{ meal.amount }} | Offen: {{meal.amountOpen}})</del>
+                                <button [disabled]="meal.amountOpen >= meal.amount" class="btn btn-success m-1" (click)="incOpenAmount(meal, order)">+</button>
+                                <button [disabled]="meal.amountOpen <= 0" class="btn btn-danger m-1" (click)="decOpenAmount(meal, order)">-</button>
+                            </span>
                         </div>
                         <div>
                             <button class="btn btn-success m-1" (click)="setOrderStatus(order, 'OPEN')">Offen</button>

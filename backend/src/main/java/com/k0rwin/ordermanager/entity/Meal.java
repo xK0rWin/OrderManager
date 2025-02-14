@@ -23,17 +23,21 @@ public abstract class Meal {
     private Double price;
     @Column(name = "amount")
     private Integer amount;
+    @Column(name = "amountOpen")
+    private Integer amountOpen;
 
     public Meal() {}
 
     public Meal(Double price) {
         this.price = price;
         this.amount = 0;
+        this.amountOpen = 0;
     }
 
     public Meal(Double price, Integer amount) {
         this.price = price;
         this.amount = amount;
+        this.amountOpen = amount;
     }
 
     public abstract String getIdentifier();

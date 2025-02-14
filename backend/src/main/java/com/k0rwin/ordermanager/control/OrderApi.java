@@ -212,6 +212,45 @@ public class OrderApi {
         }
     }
 
+    @PutMapping(value = "/{id}/drinkorder/{drinkName}/{amountOpen}", produces = "application/json")
+    public ResponseEntity<Void> setOpenDrinkAmount(@PathVariable Long id, @PathVariable String drinkName, @PathVariable Integer amountOpen) {
+        Optional<Order> order = orderRepository.findById(id);
+
+        if (order.isPresent() && !order.get().getDrinkOrder().getDrinks().isEmpty()) {
+            Optional<Drink> d = order.get().getDrinkOrder().getDrinkByName(drinkName);
+
+            if (d.isPresent()) {
+                d.get().setAmountOpen(amountOpen);
+                orderRepository.save(order.get());
+                sendSseEvent("order drink status updated");
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping(value = "/{id}/mealorder/{mealName}/{amountOpen}", produces = "application/json")
+    public ResponseEntity<Void> setOpenMealAmount(@PathVariable Long id, @PathVariable String mealName, @PathVariable Integer amountOpen) {
+        Optional<Order> order = orderRepository.findById(id);
+        if (order.isPresent() && !order.get().getMealOrder().getMeals().isEmpty()) {
+            Optional<Meal> m = order.get().getMealOrder().getMealByName(mealName);
+
+            if (m.isPresent()) {
+                m.get().setAmountOpen(amountOpen);
+                orderRepository.save(order.get());
+                sendSseEvent("order meal status updated");
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         if (orderRepository.existsById(id)) {
@@ -231,7 +270,9 @@ public class OrderApi {
         for (Order order : openOrders) {
             for (Meal meal : order.getMealOrder().getMeals()) {
                 //put the new Meal if not exists else add value + 1
-                summary.compute(meal.getIdentifier(), (k, v) -> (v == null) ? meal.getAmount() : v + meal.getAmount());
+                if (meal.getAmountOpen() != null) {
+                    summary.compute(meal.getIdentifier(), (k, v) -> (v == null) ? meal.getAmountOpen() : v + meal.getAmountOpen());
+                }
             }
         }
 
@@ -246,7 +287,9 @@ public class OrderApi {
         for (Order order : openOrders) {
             for (Drink drink : order.getDrinkOrder().getDrinks()) {
                 //put the new Drink if not exists else add value + 1
-                summary.compute(drink.getIdentifier(), (k, v) -> (v == null) ? drink.getAmount() : v + drink.getAmount());
+                if (drink.getAmountOpen() != null) {
+                    summary.compute(drink.getIdentifier(), (k, v) -> (v == null) ? drink.getAmountOpen() : v + drink.getAmountOpen());
+                }
             }
         }
 
