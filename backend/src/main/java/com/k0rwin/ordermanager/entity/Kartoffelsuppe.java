@@ -13,13 +13,13 @@ import javax.persistence.Entity;
 @Entity
 @Deprecated
 @DiscriminatorValue("KARTOFFELSUPPE_VEG")
-public class SuppeBrot extends Meal {
+public class Kartoffelsuppe extends Meal {
 
-    public SuppeBrot() {
+    public Kartoffelsuppe() {
         super(Price.KARTOFFELSUPPE_VEG);
     }
 
-    public SuppeBrot(Integer amount) {
+    public Kartoffelsuppe(Integer amount) {
         super(Price.KARTOFFELSUPPE_VEG, amount);
     }
 
