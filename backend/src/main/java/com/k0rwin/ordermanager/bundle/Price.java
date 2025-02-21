@@ -2,9 +2,9 @@ package com.k0rwin.ordermanager.bundle;
 
 public class Price {
     //Drinks
-    public static double WASSER_STILL = 4.50;
-    public static double WASSER_MEDIUM = 4.50;
-    public static double WASSER_CLASSIC = 4.50;
+    public static double WASSER_STILL = 4.00;
+    public static double WASSER_MEDIUM = 4.00;
+    public static double WASSER_CLASSIC = 4.00;
     public static double APFELSCHORLE = 4.00;
     public static double JOHANNISBEERSCHORLE = 4.00;
     public static double ORANGENSAFT = 4.00;
@@ -65,7 +65,7 @@ public class Price {
     public static double BAUERNWUERSTE = 8.50;
     public static double KARTOFFELSUPPE_VEG = 6.50;
     public static double KARTOFFELSUPPE_WIENERLE = 7.00;
-    public static double SCHINKEN_BAGUETTE = 6.50;
+    public static double SCHINKEN_BAGUETTE = 8.00;
     public static double WIENERLE = 6.50;
     public static double MOZARELLA_BAGUETTE = 6.50;
     public static double GULASCHSUPPE = 7.50;
