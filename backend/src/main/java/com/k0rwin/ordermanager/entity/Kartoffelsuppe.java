@@ -11,8 +11,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-@Deprecated
-@DiscriminatorValue("KARTOFFELSUPPE_VEG")
+@DiscriminatorValue("KARTOFFELSUPPE")
 public class Kartoffelsuppe extends Meal {
 
     public Kartoffelsuppe() {
