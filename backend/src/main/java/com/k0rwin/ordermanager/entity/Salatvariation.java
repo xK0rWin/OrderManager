@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-@Deprecated
 @DiscriminatorValue("SALATVARIATION")
 public class Salatvariation extends Meal {
 
