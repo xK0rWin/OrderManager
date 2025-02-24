@@ -72,5 +72,5 @@ public class Identifier {
     public static String KARTOFFELSUPPE_WIENERLE = "Suppe Wienerle";
     public static String SCHINKEN_BAGUETTE = "Schinken Baguette";
     public static String MOZARELLA_BAGUETTE = "Mozarella Baguette";
-    public static String SALATVARIATION = "Salatvariation Brot";
+    public static String SALATVARIATION = "Salatvariation";
 }
