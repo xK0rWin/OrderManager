@@ -52,21 +52,24 @@ public class Price {
     public static double WEINSCHORLE_WEISS = 6.00;
     public static double HEXECCO_GLAS = 4.00;
     public static double HEXECCO_FL = 24.00;
+    public static double SEKTORANGE = 4.00;
 
     //Coffee
     public static double KAFFEE = 2.50;
 
     //Meals
-    public static double WURSTSALAT = 12.50;
+    public static double WURSTSALAT = 11.50;
     public static double KAESESALAT = 12.50;
     public static double STRASSBURGER = 12.50;
     public static double SCHUDIWECK_SCHINKEN = 5.00;
     public static double SCHUDIWECK_KAESE = 5.00;
     public static double BAUERNWUERSTE = 8.50;
+    public static double CURRYWURST = 8.50;
     public static double KARTOFFELSUPPE_VEG = 6.50;
     public static double KARTOFFELSUPPE_WIENERLE = 7.00;
     public static double SCHINKEN_BAGUETTE = 8.00;
     public static double WIENERLE = 6.50;
     public static double MOZARELLA_BAGUETTE = 6.50;
     public static double GULASCHSUPPE = 7.50;
+    public static double SALATVARIATION = 12.50;
 }

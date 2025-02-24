@@ -53,6 +53,7 @@ public class Identifier {
     public static String WEINSCHORLE_WEISS = "Weinschorle Weiss Suess";
     public static String HEXECCO_GLAS = "Hexecco Glas";
     public static String HEXECCO_FL = "Hexecco Flasche";
+    public static String SEKTORANGE = "Sekt Orange";
 
     //Coffee
     public static String KAFFEE = "Kaffee";
@@ -65,9 +66,11 @@ public class Identifier {
     public static String SCHUDIWECK_KAESE = "Schudiweck Kaese";
     public static String WIENERLE = "Wienerle";
     public static String BAUERNWUERSTE = "Bauernwuerste";
-    public static String KARTOFFELSUPPE_VEG = "Suppe Brot";
+    public static String CURRYWURST = "Currywurst";
+    public static String KARTOFFELSUPPE_VEG = "Kartoffelsuppe";
     public static String GULASCHSUPPE = "Suppe Gulasch";
     public static String KARTOFFELSUPPE_WIENERLE = "Suppe Wienerle";
     public static String SCHINKEN_BAGUETTE = "Schinken Baguette";
     public static String MOZARELLA_BAGUETTE = "Mozarella Baguette";
+    public static String SALATVARIATION = "Salatvariation Brot";
 }
